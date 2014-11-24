@@ -1,0 +1,127 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:slu="clr-namespace:Microsoft.LightSwitch.SilverlightUtilities.Controls.Internal;assembly=Microsoft.LightSwitch.Client"
+    xmlns:visual="clr-namespace:Microsoft.LightSwitch.Presentation.Implementation.Controls;assembly=Microsoft.LightSwitch.Client.Internal"
+    xmlns:slup="clr-namespace:Microsoft.LightSwitch.Utilities.SilverlightUtilities;assembly=Microsoft.LightSwitch.Client"
+    xmlns:fm="clr-namespace:Microsoft.LightSwitch.Presentation.Framework;assembly=Microsoft.LightSwitch.Client">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/MetroTheme.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="slup:ValidatableContentControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="slup:ValidatableContentControl">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="ValidationStates">
+                                <VisualState x:Name="Valid"/>
+                                <VisualState x:Name="InvalidUnfocused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ValidationErrorElement" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" >
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Glyph" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" >
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="InvalidFocused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ValidationErrorElement" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" >
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Glyph" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" >
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="validationTooltip" Storyboard.TargetProperty="IsOpen">
+                                            <DiscreteObjectKeyFrame KeyTime="0" >
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <sys:Boolean>True</sys:Boolean>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <ContentPresenter x:Name="presenter" />
+
+                        <Border x:Name="ValidationErrorElement" BorderThickness="1" 
+                            slu:ObservableToPropertyChangeHelper.ObservableSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay, Path=(Validation.Errors)}"
+                            BorderBrush="{StaticResource ValidationPopupErrorBorderBrush}"
+                            Visibility="Collapsed">
+                            <ToolTipService.ToolTip>
+                                <fm:ValidationToolTip x:Name="validationTooltip"
+                                    Errors="{Binding (Validation.Errors), RelativeSource={RelativeSource TemplatedParent}}"
+                                    PlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                                    <ToolTip.Triggers>
+                                        <EventTrigger RoutedEvent="Canvas.Loaded">
+                                            <EventTrigger.Actions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="validationTooltip" Storyboard.TargetProperty="IsHitTestVisible">
+                                                            <DiscreteObjectKeyFrame KeyTime="0" >
+                                                                <DiscreteObjectKeyFrame.Value>
+                                                                    <sys:Boolean>true</sys:Boolean>
+                                                                </DiscreteObjectKeyFrame.Value>
+                                                            </DiscreteObjectKeyFrame>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger.Actions>
+                                        </EventTrigger>
+                                    </ToolTip.Triggers>
+                                </fm:ValidationToolTip>
+                            </ToolTipService.ToolTip>
+                        </Border>
+
+                        <Grid x:Name="Glyph" HorizontalAlignment="Left" Width="10" Height="10" Margin="-5,0,0,0" Visibility="Collapsed" >
+                            <Ellipse StrokeThickness="0" Fill="{StaticResource ValidationPopupErrorBorderBrush}"/>
+                            <Path
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Height="6"
+                                Data="M 1,0 C1,0 0,1 0,1 0,1 2,3 2,3 2,3 0,5 0,5 0,5 1,6 1,6 1,6 3,4 3,4 3,4 5,6 5,6 5,6 6,5 6,5 6,5 4,3 4,3 4,3 6,1 6,1 6,1 5,0 5,0 5,0 3,2 3,2 3,2 1,0 1,0 z"
+                                Fill="#ffffff"/>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style TargetType="visual:ErrorVisual">
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="visual:ErrorVisual">
+                    <Border BorderBrush="{StaticResource ValidationPopupErrorBorderBrush}" BorderThickness="1">
+                        <TextBlock Text="{TemplateBinding Text}" Foreground="{StaticResource ValidationPopupTextBrush}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>

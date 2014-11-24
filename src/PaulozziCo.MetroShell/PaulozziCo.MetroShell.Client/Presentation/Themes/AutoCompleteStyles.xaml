@@ -1,0 +1,403 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:visual="clr-namespace:Microsoft.LightSwitch.Presentation.Implementation.Controls;assembly=Microsoft.LightSwitch.Client.Internal"
+    xmlns:r="clr-namespace:Microsoft.LightSwitch.Presentation.Implementation.Resources;assembly=Microsoft.LightSwitch.Client.Internal"
+    xmlns:framework="clr-namespace:Microsoft.LightSwitch.Presentation.Framework;assembly=Microsoft.LightSwitch.Client"
+    xmlns:Validation="clr-namespace:Microsoft.LightSwitch.Utilities.SilverlightUtilities;assembly=Microsoft.LightSwitch.Client"
+    xmlns:style="clr-namespace:Microsoft.LightSwitch.Presentation.Framework.Helpers;assembly=Microsoft.LightSwitch.Client"
+    xmlns:utils="clr-namespace:Microsoft.LightSwitch.Presentation.Utilities.Internal;assembly=Microsoft.LightSwitch.Client"
+    xmlns:converters="clr-namespace:Microsoft.LightSwitch.Presentation.Framework.Converters.Internal;assembly=Microsoft.LightSwitch.Client"
+    >
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ValidatableContentControl.xaml"/>
+        <ResourceDictionary Source="TextBoxStyles.xaml"/>
+        <ResourceDictionary Source="MetroTheme.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    <!-- The following styles define the look and feel of the autocomplete box.  Note that LightSwtich does not support
+         ComboBoxes; the AutoComplete Box is instead styled to look like a combo box.-->
+
+    <utils:NotConverter x:Key="NotConverter"/>
+    <converters:TextBoxContentConverter x:Key="SingleLineConverter" Lines="1"/>
+    <converters:BooleanToValueConverter x:Key="IsReadOnlyToStyleConverter" ValueForTrue="{StaticResource DisabledDisplayModeTextBlockStyle}" ValueForFalse="{StaticResource DisplayModeTextBlockStyle}"/>
+
+    <r:LocalizedStrings x:Key="LocalizedStrings" />
+    <visual:CancellableContentControlStateConverter x:Key="StateConverter" />
+
+    <!-- Data template for valid/normal items in the auto complete box -->
+    <DataTemplate x:Key="NormalItemTemplate">
+        <!-- DataContext is an item from the Choices list.  The converter takes that choice value and "converts"
+                        it into a content item by cloning the Detail's row template and binding it to the choice value -->
+        <framework:ContentItemPresenter MinHeight="20" ContentItem="{Binding ContentItem}"/>
+    </DataTemplate>
+
+    <!-- Data template for an invalid item that is selected in the autocomplete box -->
+    <DataTemplate x:Key="ErrorItemTemplate">
+        <Image Width="16" Height="16" Margin="3, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                            Source="/Microsoft.LightSwitch.Client;component/Screens/ScreenPresentation/InternalFramework/Resources/Resources/DataError.png"/>
+    </DataTemplate>
+
+    <!-- Style for items in the autocomplete box.  The default ListBoxItem style has considerable padding, so we'll just
+         override it here. -->
+    <Style x:Key="AutoCompleteListBoxItemStyle" TargetType="ListBoxItem">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBoxTextBrush}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="TabNavigation" Value="Local" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Grid Background="{TemplateBinding Background}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="CommonStatesRectangle" Storyboard.TargetProperty="Opacity" Duration="0" To="1"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Unselected" />
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="SelectedRectangle" Storyboard.TargetProperty="Opacity" Duration="0" To="1"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="FocusVisualElement" Storyboard.TargetProperty="Opacity" Duration="0" To="1"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+
+                        <Rectangle x:Name="SelectedRectangle" Opacity="0" 
+                                   Fill="{StaticResource MenuItemBackgroundSelectedBrush}" 
+                                   Stroke="{StaticResource MenuItemBorderSelectedBrush}"
+                                   StrokeThickness="1"
+                                   />
+
+                        <Rectangle x:Name="CommonStatesRectangle" Opacity="0" 
+                                   Fill="{StaticResource MenuItemBackgroundMouseOverBrush}"
+                                   Stroke="{StaticResource MenuItemBorderMouseOverBrush}"
+                                   StrokeThickness="1"
+                                   />
+
+                        <Rectangle x:Name="FocusVisualElement" Opacity="0"
+                                   Fill="{StaticResource MenuItemBackgroundMouseOverBrush}"
+                                   Stroke="{StaticResource MenuItemBorderMouseOverBrush}" 
+                                   StrokeThickness="1"
+                                   />
+
+                        <ContentPresenter x:Name="contentPresenter"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <!-- Style for the dropdown arrow -->
+    <Style x:Name="DropDownButtonStyle" TargetType="Button">
+        <Setter Property="Foreground" Value="{StaticResource TextBoxButtonGlyphBrush}"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Height" Value="16"/>
+        <Setter Property="Width" Value="16"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0:0:0.2" To="MouseOver" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver"/>
+                                <VisualState x:Name="Pressed"/>
+                                <VisualState x:Name="Disabled"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Unfocused"/>
+                                <VisualState x:Name="Focused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Rectangle Fill="Transparent" />
+                        <Path x:Name="BtnArrow" VerticalAlignment="Center" HorizontalAlignment="Center"
+                			Data="M 1.32501220703125,0.225006103515625 C1.0350341796875,-0.06494140625 0.56494140625,-0.06494140625 0.2750244140625,0.225006103515625 -0.01495361328125,0.51495361328125 -0.01495361328125,0.98504638671875 0.2750244140625,1.274993896484375 0.2750244140625,1.274993896484375 4.4749755859375,5.475006103515625 4.4749755859375,5.475006103515625 4.76495361328125,5.76495361328125 5.23504638671875,5.76495361328125 5.5250244140625,5.475006103515625 5.5250244140625,5.475006103515625 9.7249755859375,1.274993896484375 9.7249755859375,1.274993896484375 10.01495361328125,0.98504638671875 10.01495361328125,0.51495361328125 9.7249755859375,0.225006103515625 9.43505859375,-0.06494140625 8.9649658203125,-0.06494140625 8.67498779296875,0.225006103515625 8.67498779296875,0.225006103515625 5,3.899993896484375 5,3.899993896484375 5,3.899993896484375 1.32501220703125,0.225006103515625 1.32501220703125,0.225006103515625 z" UseLayoutRounding="False" 
+                              Fill="{StaticResource DropDownGlyphFillBrush}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Base style used for the autocomplete box -->
+    <Style x:Key="BaseAutoCompleteComboBoxStyle" TargetType="visual:AutoCompleteComboBox">
+        <Setter Property="IsTextCompletionEnabled" Value="True" />
+        <Setter Property="MinimumPrefixLength" Value="0" />
+        <Setter Property="MinHeight" Value="21"/>
+        <Setter Property="Padding" Value="1,2,18,0" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Foreground" Value="{StaticResource TextBoxTextBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource TextBoxBorderBrush}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource AutoCompleteListBoxItemStyle}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="visual:AutoCompleteComboBox">
+                    <Grid Opacity="{TemplateBinding Opacity}">
+                        <visual:CancellableContentControl x:Name="textBoxLoadingIndicator" CurrentState="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StateConverter}, Path=IsLoading}">
+                            <Grid>
+                                <TextBox x:Name="Text"
+                                        IsTabStop="{TemplateBinding IsTabStop}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        Padding="{TemplateBinding Padding}"
+                                        Style="{StaticResource TextBoxBaseStyle}"
+                                        AutomationProperties.AutomationId="{Binding Name, StringFormat=Control:\{0\}}"
+                                        AutomationProperties.Name="{Binding DisplayName}"
+                                        AutomationProperties.HelpText="{Binding Description}"/>
+
+                                <Button x:Name="DropDownButton"
+                                    HorizontalAlignment="Right"
+                                    Style="{StaticResource DropDownButtonStyle}"
+                                    AutomationProperties.AutomationId="{Binding Name, StringFormat=Control:\{0\}:DropDownButton}"
+                                    AutomationProperties.Name="{Binding DisplayName}"
+                                    AutomationProperties.HelpText="{Binding Description}"/>
+
+                            </Grid>
+                        </visual:CancellableContentControl>
+
+                        <Popup x:Name="Popup">
+                            <Border x:Name="PopupBorder" HorizontalAlignment="Stretch" Height="Auto"
+                                    BorderThickness="1" Margin="0,1"
+                                    BorderBrush="{StaticResource MenuBorderBrush}" CornerRadius="0"
+                                    Background="{StaticResource MenuBackgroundBrush}">
+                                <visual:CancellableContentControl CurrentState="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StateConverter}, Path=IsLoading}">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <ListBox x:Name="Selector"
+                                                 MaxHeight="600"
+                                                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                 ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
+                                                 Background="Transparent"
+                                                 Foreground="{TemplateBinding Foreground}"
+                                                 BorderThickness="0"
+                                                 ItemTemplate="{TemplateBinding ItemTemplate}" />
+                                        <Border
+                                            BorderBrush="{StaticResource MenuBorderBrush}" BorderThickness="0,1,0,0"
+                                            Background="{StaticResource MenuBackgroundBrush}" Grid.Row="1"
+                                            Visibility="{TemplateBinding RefreshButtonVisibility}">
+                                            <StackPanel Orientation="Horizontal" Margin="3,0">
+                                                <Button
+                                                    Style="{StaticResource ToolbarButtonStyle}"
+                                                    Command="{TemplateBinding RefreshCommand}"
+                                                    AutomationProperties.AutomationId="{Binding Name, StringFormat=Control:\{0\}:RefreshButton}"
+                                                    AutomationProperties.Name="{Binding Path=Strings.AutoCompleteBoxPicker_RefreshButtonName, Source={StaticResource LocalizedStrings}}"
+                                                    AutomationProperties.HelpText="{Binding Path=Strings.AutoCompleteBoxPicker_RefreshButtonTooltip, Source={StaticResource LocalizedStrings}}"
+                                                    ToolTipService.ToolTip="{Binding Path=Strings.AutoCompleteBoxPicker_RefreshButtonTooltip, Source={StaticResource LocalizedStrings}}"
+                                                    Height="15" Width="15" VerticalAlignment="Center" Padding="0">
+                                                    <Image Source="/PaulozziCo.MetroShell.Client;component/Presentation/Icons/RefreshSmall.png" Height="15" Width="15"/>
+                                                </Button>
+                                                <HyperlinkButton
+                                                    Style="{StaticResource SummaryLinkStyle}"
+                                                    Command="{TemplateBinding RefreshCommand}"
+                                                    Content="{Binding Strings.Caption_Refresh, Source={StaticResource LocalizedStrings}}"
+                                                    AutomationProperties.AutomationId="{Binding Name, StringFormat=Control:\{0\}:RefreshButton}"
+                                                    AutomationProperties.Name="{Binding Strings.AutoCompleteBoxPicker_RefreshButtonName, Source={StaticResource LocalizedStrings}}"
+                                                    AutomationProperties.HelpText="{Binding Strings.AutoCompleteBoxPicker_RefreshButtonTooltip, Source={StaticResource LocalizedStrings}}"
+                                                    ToolTipService.ToolTip="{Binding Strings.AutoCompleteBoxPicker_RefreshButtonTooltip, Source={StaticResource LocalizedStrings}}" />
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+                                </visual:CancellableContentControl>
+                            </Border>
+                        </Popup>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="PopupStates">
+                                <VisualState x:Name="PopupOpened">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="PopupBorder" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.4"  />
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="textBoxLoadingIndicator" Storyboard.TargetProperty="CurrentState" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <visual:CancellableContentControlState>Normal</visual:CancellableContentControlState>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PopupClosed">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="PopupBorder" Storyboard.TargetProperty="Opacity" To="0.0" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Implicit style for the autocomplete box. -->
+    <Style TargetType="visual:AutoCompleteComboBox" BasedOn="{StaticResource BaseAutoCompleteComboBoxStyle}">
+        <Setter Property="TextBoxStyle" Value="{StaticResource TextBoxWithValidationStyle}"/>
+    </Style>
+
+    <!-- Autocomplete Combobox (in grid) Style.  The key name here is necessary; LightSwitch looks for this key explicitly. -->
+    <Style x:Key="AutoCompleteComboBoxWithValidationInDataGridStyle" TargetType="visual:AutoCompleteComboBox" BasedOn="{StaticResource BaseAutoCompleteComboBoxStyle}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="TextBoxStyle" Value="{StaticResource TextBoxWithValidationInDataGridStyle}"/>
+    </Style>
+
+    <!-- Edit Mode Style -->
+    <Style TargetType="visual:AutoCompleteBoxVisual">
+        <Setter Property="style:SetterBindingHelper.PropertyBindings">
+            <Setter.Value>
+                <style:SetterBindingHelperCollection>
+                    <style:ContainerStateHelper Binding="{Binding ContainerState}"/>
+                    <style:SetterBindingHelper Property="IsEnabled" Binding="{Binding IsReadOnly, Converter={StaticResource NotConverter}}"/>
+                </style:SetterBindingHelperCollection>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="MinWidth" Value="35"/>
+        <Setter Property="MinHeight" Value="22"/>
+        <Setter Property="NormalItemTemplate" Value="{StaticResource NormalItemTemplate}" />
+        <Setter Property="ErrorItemTemplate" Value="{StaticResource ErrorItemTemplate}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="visual:AutoCompleteBoxVisual">
+                    <ContentPresenter HorizontalAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/HorizontalAlignment]}"
+                                      VerticalAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/VerticalAlignment]}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="ContainerStates">
+                                <VisualState x:Name="None"/>
+                                <VisualState x:Name="Cell">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ComboBoxElement" Storyboard.TargetProperty="Style" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource AutoCompleteComboBoxWithValidationInDataGridStyle}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+
+                            <VisualStateGroup x:Name="ProcessingStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Processing">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ComboBoxElement" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" >
+                                                <DiscreteObjectKeyFrame.Value>Collapsed</DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OverlayRectangle" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" >
+                                                <DiscreteObjectKeyFrame.Value>Visible</DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Overlay" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" >
+                                                <DiscreteObjectKeyFrame.Value>Visible</DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Width="16" Height="16" Margin="3, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                            Visibility="{Binding DataError, Converter={StaticResource valueNullVisibilityConverter}}"
+                                                            Source="/Microsoft.LightSwitch.Client;component/Screens/ScreenPresentation/InternalFramework/Resources/Resources/DataError.png"/>
+                            <visual:AutoCompleteComboBox x:Name="ComboBoxElement"
+                                                             AutomationProperties.AutomationId="{Binding Name, StringFormat=Control:\{0\}}"
+                                                             AutomationProperties.Name="{Binding Description}"
+                                                             AutomationProperties.HelpText="{Binding Description}"
+                                                             ToolTipService.ToolTip="{Binding Description}"
+                                                             Grid.Column="1"
+                                                             ValueMemberPath="StringValue">
+                            </visual:AutoCompleteComboBox>
+
+                            <Rectangle x:Name="OverlayRectangle" Grid.Column="1"
+                                           Visibility="Collapsed"
+                                           Fill="{StaticResource ScreenLoadingBackgroundBrush}" />
+                            <TextBlock x:Name="Overlay" Grid.Column="1"
+                                           Text="{Binding Path=Strings.ProcessingStateIndicatorText, Source={StaticResource LocalizedStrings}}" 
+                                           HorizontalAlignment="Stretch" 
+                                           ToolTipService.ToolTip="{Binding Path=Strings.ProcessingStateIndicatorToolTip, Source={StaticResource LocalizedStrings}}"
+                                           Visibility="Collapsed"
+                                           AutomationProperties.HelpText="{Binding Path=Strings.ProcessingStateIndicatorToolTip, Source={StaticResource LocalizedStrings}}"
+                                           Style="{StaticResource TextBlockStyle}"/>
+
+                            <!-- We are not binding ComboBox.SelectedItem so the default validation style won't work.
+                                        The SelectedItem does not support binding for null value and it returns an empty ComboBoxItem
+                                        container so we have to handle it manually.-->
+                            <Validation:ValidatableContentControl x:Name="_validationControl" Grid.Column="1" ValidationDataSource="{Binding StringValue}"/>
+                        </Grid>
+                    </ContentPresenter>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Display Mode Style used when the underlying field is read-only or the autocomplete box is in display mode within the data grid -->
+    <Style TargetType="visual:DisplayModeAutoCompleteBoxVisual">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="MinWidth" Value="35"/>
+        <Setter Property="MinHeight" Value="22"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="visual:DisplayModeAutoCompleteBoxVisual">
+                    <Grid HorizontalAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/HorizontalAlignment]}"
+                              VerticalAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/VerticalAlignment]}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <visual:SummaryControl x:Name="TextElement" Margin="0" />
+                        <Rectangle x:Name="ButtonRegion" Width="20" Height="16"
+                                       Fill="Transparent" Grid.Column="1"/>
+                        <Path Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                              Data="M 1.32501220703125,0.225006103515625 C1.0350341796875,-0.06494140625 0.56494140625,-0.06494140625 0.2750244140625,0.225006103515625 -0.01495361328125,0.51495361328125 -0.01495361328125,0.98504638671875 0.2750244140625,1.274993896484375 0.2750244140625,1.274993896484375 4.4749755859375,5.475006103515625 4.4749755859375,5.475006103515625 4.76495361328125,5.76495361328125 5.23504638671875,5.76495361328125 5.5250244140625,5.475006103515625 5.5250244140625,5.475006103515625 9.7249755859375,1.274993896484375 9.7249755859375,1.274993896484375 10.01495361328125,0.98504638671875 10.01495361328125,0.51495361328125 9.7249755859375,0.225006103515625 9.43505859375,-0.06494140625 8.9649658203125,-0.06494140625 8.67498779296875,0.225006103515625 8.67498779296875,0.225006103515625 5,3.899993896484375 5,3.899993896484375 5,3.899993896484375 1.32501220703125,0.225006103515625 1.32501220703125,0.225006103515625 z" UseLayoutRounding="False" Opacity="0.5"
+                              Fill="{StaticResource DropDownGlyphFillBrush}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

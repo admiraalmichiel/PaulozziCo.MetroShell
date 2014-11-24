@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CDC66058-E607-4274-B1AF-8668A21533C0}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PaulozziCo.MetroShell</RootNamespace>
+    <AssemblyName>PaulozziCo.MetroShell.Client</AssemblyName>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <ExpressionBlendVersion>5.2.30810.0</ExpressionBlendVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LightSwitchPath Condition=" '$(LightSwitchPath)' == '' ">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\11.0@InstallDir)</LightSwitchPath>
+  </PropertyGroup>
+  <!-- This property group is only here to support building this project using the 
+       MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
+       to set the TargetFrameworkVersion to v3.5 -->
+  <PropertyGroup Condition="'$(MSBuildToolsVersion)' == '3.5'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.LightSwitch">
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\LightSwitch\Client\Microsoft.LightSwitch.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.LightSwitch.Client">
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\LightSwitch\Client\Microsoft.LightSwitch.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.LightSwitch.Client.Internal, Version=10.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\LightSwitch\Client\Microsoft.LightSwitch.Client.Internal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.LightSwitch.ExportProvider, Version=10.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\LightSwitch\Client\Microsoft.LightSwitch.ExportProvider.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.LightSwitch.RuntimeEditor.Internal, Version=10.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\LightSwitch\Client\Microsoft.LightSwitch.RuntimeEditor.Internal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.LightSwitch.SDKProxy">
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\LightSwitch\Client\Microsoft.LightSwitch.SDKProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Data, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Data.Input, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Input, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Navigation, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Serialization, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Global.cs" />
+    <Compile Include="Model\AuthenticationModel.cs" />
+    <Compile Include="Model\BackgroudColorStyle.cs" />
+    <Compile Include="Model\CommandBase.cs" />
+    <Compile Include="Model\RibbonPositionEnum.cs" />
+    <Compile Include="Model\ThemePaletteControlerHost.cs" />
+    <Compile Include="Model\ThemeSettings.cs" />
+    <Compile Include="Model\ThemeSettingsInfo.cs" />
+    <Compile Include="Presentation\Converters\BooleanToValueConverter.cs" />
+    <Compile Include="Services\ServiceProxy.cs" />
+    <Compile Include="Model\ThemeColorPalette.cs" />
+    <Compile Include="Model\ThemeColors.cs" />
+    <Compile Include="Model\ThemeColorType.cs" />
+    <Compile Include="Presentation\Behaviors\Attached.cs" />
+    <Compile Include="Presentation\Behaviors\MouseScrollBehavior.cs" />
+    <Compile Include="Presentation\Behaviors\MouseScrollViewer.cs" />
+    <Compile Include="Presentation\Controls\ColorSlider.xaml.cs">
+      <DependentUpon>ColorSlider.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Controls\CurrentUserInfoControl.xaml.cs">
+      <DependentUpon>CurrentUserInfoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Controls\LightSwitchUI_Mockup.xaml.cs">
+      <DependentUpon>LightSwitchUI_Mockup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Controls\PopupWrapper.cs" />
+    <Compile Include="Presentation\Controls\ThemeSettingsControl.xaml.cs">
+      <DependentUpon>ThemeSettingsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Converters\BackgroundStyleToOpacityConverter.cs" />
+    <Compile Include="Presentation\Converters\BooleanToTextConverter.cs" />
+    <Compile Include="Presentation\Converters\BooleanToThicknessConverter.cs" />
+    <Compile Include="Presentation\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Presentation\Converters\ColorLightenConverter.cs" />
+    <Compile Include="Presentation\Converters\ConverterBase.cs" />
+    <Compile Include="Presentation\Converters\LocalizedStringsConverter.cs" />
+    <Compile Include="Presentation\Converters\NegateConverter.cs" />
+    <Compile Include="Presentation\Converters\RibbonPositionToPropertyConverter.cs" />
+    <Compile Include="Presentation\Converters\ValidationBrushConverter.cs" />
+    <Compile Include="Presentation\Converters\ValidationResultToTemplateConverter.cs" />
+    <Compile Include="Presentation\Resources\PresentationResources.cs" />
+    <Compile Include="Presentation\Resources\ThemeCollection.cs" />
+    <Compile Include="Services\ThemeMenager.cs" />
+    <Compile Include="Services\ThemePaletteMenager.cs" />
+    <Compile Include="Presentation\Resources\ThemeResources.cs" />
+    <Compile Include="Model\ThemeStoreInfo.cs" />
+    <Compile Include="Utilities\CultureHelper.cs" />
+    <Compile Include="Utilities\DesignTimeEnvironment.cs" />
+    <Compile Include="Utilities\IsolatedStorageHelper.cs" />
+    <Compile Include="Utilities\ListBoxFix.cs" />
+    <Compile Include="Utilities\StringHelper.cs" />
+    <Compile Include="Presentation\Converters\TextToLowerConverter.cs" />
+    <Compile Include="Presentation\Resources\ImageProvider.cs" />
+    <Compile Include="Utilities\ColorHelper.cs" />
+    <Compile Include="Presentation\Converters\ContentItemToIconConverter.cs" />
+    <Compile Include="Presentation\Converters\ExtendedCommandToIconConverter.cs" />
+    <Compile Include="Presentation\Converters\IconConverterBase.cs" />
+    <Compile Include="Presentation\Converters\ImageUtilities.cs" />
+    <Compile Include="Presentation\Converters\RibbonIconConverter.cs" />
+    <Compile Include="Presentation\Converters\TextToUpperConverter.cs" />
+    <Compile Include="Presentation\Shells\Components\MetroShell.cs" />
+    <Compile Include="Presentation\Shells\MetroShell.xaml.cs">
+      <DependentUpon>MetroShell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ThemeSettingsMenager.cs" />
+    <Compile Include="Model\ViewModelBase.cs" />
+    <Compile Include="Utilities\Parameter.cs" />
+    <Compile Include="Utilities\ResourceUtilities.cs" />
+    <Compile Include="Utilities\ViewModelManager.cs" />
+    <Compile Include="Presentation\Themes\MetroStyles.cs" />
+    <Compile Include="Presentation\Themes\MetroTheme.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Presentation\Controls\ColorSlider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Presentation\Controls\CurrentUserInfoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Presentation\Controls\LightSwitchUI_Mockup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presentation\Controls\ThemeSettingsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presentation\Shells\MetroShell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Presentation\Shells\screenresources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Presentation\Shells\validationresources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presentation\Themes\AttachedLabelPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presentation\Themes\AutoCompleteStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presentation\Themes\Brushes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Presentation\Themes\ButtonStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presentation\Themes\ControlsStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Presentation\Themes\DataGridStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presentation\Themes\DataPagerStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presentation\Themes\DateStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presentation\Themes\MetroStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presentation\Themes\MetroTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Presentation\Themes\ModalWindowPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presentation\Themes\OtherStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Presentation\Themes\RibbonStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presentation\Themes\SearchControlStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presentation\Themes\TabControlStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presentation\Themes\TextBoxStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presentation\Themes\ValidatableContentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presentation\Themes\ValidationTooltipStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Presentation\Icons\AddLarge.png" />
+    <Resource Include="Presentation\Icons\AddLarge_Hover.png" />
+    <Resource Include="Presentation\Icons\AddSmall.png" />
+    <Resource Include="Presentation\Icons\AddSmall_Hover.png" />
+    <Resource Include="Presentation\Icons\CloseSmall.png" />
+    <Resource Include="Presentation\Icons\CustomizeScreenLarge.png" />
+    <Resource Include="Presentation\Icons\CustomizeScreenLarge_Hover.png" />
+    <Resource Include="Presentation\Icons\CustomizeScreenSmall.png" />
+    <Resource Include="Presentation\Icons\CustomizeScreenSmall_Hover.png" />
+    <Resource Include="Presentation\Icons\DeleteLarge.png" />
+    <Resource Include="Presentation\Icons\DeleteLarge_Hover.png" />
+    <Resource Include="Presentation\Icons\DeleteSmall.png" />
+    <Resource Include="Presentation\Icons\DeleteSmall_Hover.png" />
+    <Resource Include="Presentation\Icons\EditLarge.png" />
+    <Resource Include="Presentation\Icons\EditLarge_Hover.png" />
+    <Resource Include="Presentation\Icons\EditSmall.png" />
+    <Resource Include="Presentation\Icons\EditSmall_Hover.png" />
+    <Resource Include="Presentation\Icons\ExcelLarge.png" />
+    <Resource Include="Presentation\Icons\ExcelLarge_Hover.png" />
+    <Resource Include="Presentation\Icons\ExcelSmall.png" />
+    <Resource Include="Presentation\Icons\ExcelSmall_Hover.png" />
+    <Resource Include="Presentation\Icons\PlaceholderLarge.png" />
+    <Resource Include="Presentation\Icons\PlaceholderLarge_Hover.png" />
+    <Resource Include="Presentation\Icons\PlaceholderSmall.png" />
+    <Resource Include="Presentation\Icons\PlaceholderSmall_Hover.png" />
+    <Resource Include="Presentation\Icons\RefreshLarge.png" />
+    <Resource Include="Presentation\Icons\RefreshLarge_Hover.png" />
+    <Resource Include="Presentation\Icons\RefreshSmall.png" />
+    <Resource Include="Presentation\Icons\RefreshSmall_Hover.png" />
+    <Resource Include="Presentation\Icons\SaveLarge.png" />
+    <Resource Include="Presentation\Icons\SaveLarge_Hover.png" />
+    <Resource Include="Presentation\Icons\SaveSmall.png" />
+    <Resource Include="Presentation\Icons\SaveSmall_Hover.png" />
+    <Resource Include="Presentation\Icons\SearchCancel.png" />
+    <Resource Include="Presentation\Icons\SearchCancel_Hover.png" />
+    <Resource Include="Presentation\Icons\SearchSmall.png" />
+    <Resource Include="Presentation\Icons\SearchSmall_Hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Presentation\Fonts\segoeui.ttf" />
+    <Resource Include="Presentation\Fonts\segoeuib.ttf" />
+    <Resource Include="Presentation\Fonts\segoeuii.ttf" />
+    <Resource Include="Presentation\Fonts\segoeuil.ttf" />
+    <Resource Include="Presentation\Fonts\segoeuisl.ttf" />
+    <Resource Include="Presentation\Fonts\segoeuiz.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Presentation\Fonts\seguisb.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Presentation\Icons\pin_pined.png" />
+    <Resource Include="Presentation\Icons\pin_unpined.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Presentation\Icons\dataerror.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Presentation\Resources\ThemeColorsCollection.xml">
+      <SubType>Designer</SubType>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
+        <SilverlightProjectProperties />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

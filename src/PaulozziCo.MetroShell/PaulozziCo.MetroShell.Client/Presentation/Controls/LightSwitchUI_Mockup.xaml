@@ -1,0 +1,167 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="clr-namespace:PaulozziCo.MetroShell.Presentation.Converters"
+    xmlns:model="clr-namespace:PaulozziCo.MetroShell.Model"
+    mc:Ignorable="d"
+    x:Class="PaulozziCo.MetroShell.Presentation.Controls.LightSwitchUI_Mockup"
+    d:DesignWidth="600" d:DesignHeight="320" x:Name="LightSwitchMockup" >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/MetroTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
+            <model:ThemeSettings x:Key="ThemeSettings"/>
+            
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <converters:BooleanToThicknessConverter x:Key="BooleanToThicknessConverter"/>
+            <converters:RibbonPositionToPropertyConverter x:Key="RibbonPositionToPropertyConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot">
+        <Border BorderThickness="1" BorderBrush="#FFD0D0D0" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Background="{StaticResource AccentBrush}" Height="35" Grid.Column="1" 
+                        Grid.Row="{Binding Source={StaticResource ThemeSettings}, Path=Settings.RibbonPositionValue, Converter={StaticResource RibbonPositionToPropertyConverter}}">
+                    <StackPanel Orientation="Horizontal" Margin="25,0">
+                        <Canvas Height="20" Width="20" Margin="4">
+                            <Ellipse Stroke="White" StrokeThickness="2" Height="20" Width="20"/>
+                            <TextBlock Text="..." Foreground="White" Margin="4,2,0,0"/>
+                        </Canvas>
+                        <Canvas Height="20" Width="20" Margin="4">
+                            <Ellipse Stroke="White" StrokeThickness="2" Height="20" Width="20"/>
+                            <TextBlock Text="..." Foreground="White" Margin="4,2,0,0"/>
+                        </Canvas>
+                    </StackPanel>
+                </Border>
+                <Border Background="{StaticResource NavShellBackgroundBrush}" Grid.Column="1" Grid.Row="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border VerticalAlignment="Top" Height="20" Background="Transparent"
+                                Visibility="{Binding Source={StaticResource ThemeSettings}, Path=Settings.ShowScreenTitle, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Rectangle Height="4" Width="75" Fill="LightGray" HorizontalAlignment="Left" Margin="2"/>
+                        </Border>
+                        <StackPanel Orientation="Horizontal" Margin="0,1,0,0" Grid.Row="1">
+                            <Rectangle Fill="{StaticResource DynamicBackgroundBrush}" Height="10" Width="80"/>
+                            <Rectangle Fill="{StaticResource AccentBrush}" 
+                                       Height="10" Width="80" Opacity="0.2"/>
+                        </StackPanel>
+                        <Border Background="{StaticResource DynamicBackgroundBrush}" Grid.Row="2">
+                            <StackPanel VerticalAlignment="Top" Margin="3">
+                                <Border Height="11">
+                                    <Rectangle Margin="1,0,0,0" 
+                                               Fill="{StaticResource AccentBrush}" 
+                                               Height="2" Width="70" HorizontalAlignment="Left" />
+                                </Border>
+                                <StackPanel Margin="1,0,0,0" Orientation="Horizontal" Background="Transparent" Height="10">
+                                    <Rectangle Margin="3,2" Width="4" StrokeThickness="0" Height="4" Fill="{StaticResource AccentBrush}" />
+                                    <Rectangle Margin="3,2" Width="4" StrokeThickness="0" Height="4" Fill="{StaticResource AccentBrush}" />
+                                    <Rectangle Margin="3,2" Width="4" StrokeThickness="0" Height="4" Fill="{StaticResource AccentBrush}" />
+                                </StackPanel>
+                                <Border BorderThickness="1" BorderBrush="LightGray" Height="6" Background="Transparent" HorizontalAlignment="Right" Width="50" Margin="0,-10,4,0"/>
+                                <Border Height="10">
+                                    <Rectangle Fill="Black" Height="2" Margin="1,0,0,0" Width="70" HorizontalAlignment="Left" />
+                                </Border>
+                                <Border Background="#EFEEED" Height="9" BorderThickness="2,0,0,0" 
+                                        BorderBrush="{StaticResource AccentBrush}" >
+                                    <Rectangle Margin="1,0,0,0" 
+                                               Fill="{StaticResource AccentBrush}" 
+                                               Height="1" Width="70" HorizontalAlignment="Left" />
+                                </Border>
+                                <Border Grid.Row="1" Background="{StaticResource AlternatingRowBackground}" Height="9">
+                                    <Rectangle Margin="1,0,0,0" Fill="{StaticResource AccentBrush}" 
+                                               Height="1" Width="85" HorizontalAlignment="Left" />
+                                </Border>
+                                <Border Background="{StaticResource GridRowBackgroundBrush}" Height="9">
+                                    <Rectangle Margin="1,0,0,0" Fill="{StaticResource AccentBrush}" 
+                                               Height="1" Width="70" HorizontalAlignment="Left" />
+                                </Border>
+                                <Border Grid.Row="1" Background="{StaticResource AlternatingRowBackground}" Height="9">
+                                    <Rectangle Margin="1,0,0,0" Fill="{StaticResource AccentBrush}" 
+                                               Height="1" Width="85" HorizontalAlignment="Left" />
+                                </Border>
+                                <Border Background="{StaticResource GridRowBackgroundBrush}" Height="9">
+                                    <Rectangle Margin="1,0,0,0" Fill="{StaticResource AccentBrush}" 
+                                               Height="1" Width="70" HorizontalAlignment="Left" />
+                                </Border>
+                                <Border Grid.Row="1" Background="{StaticResource AlternatingRowBackground}" Height="9">
+                                    <Rectangle Margin="1,0,0,0" Fill="{StaticResource AccentBrush}" 
+                                               Height="1" Width="85" HorizontalAlignment="Left" />
+                                </Border>
+                                <Border Background="{StaticResource GridRowBackgroundBrush}" Height="9">
+                                    <Rectangle Margin="1,0,0,0" Fill="{StaticResource AccentBrush}" 
+                                               Height="1" Width="70" HorizontalAlignment="Left" />
+                                </Border>
+                                <Border Grid.Row="1" Background="{StaticResource AlternatingRowBackground}" Height="9">
+                                    <Rectangle Margin="1,0,0,0" Fill="{StaticResource AccentBrush}" 
+                                               Height="1" Width="85" HorizontalAlignment="Left" />
+                                </Border>
+                                <Border Background="{StaticResource GridRowBackgroundBrush}" Height="9">
+                                    <Rectangle Margin="1,0,0,0" Fill="{StaticResource AccentBrush}" 
+                                               Height="1" Width="70" HorizontalAlignment="Left" />
+                                </Border>
+                                <Border Grid.Row="1" Background="{StaticResource AlternatingRowBackground}" Height="9">
+                                    <Rectangle Margin="1,0,0,0" Fill="{StaticResource AccentBrush}" 
+                                               Height="1" Width="85" HorizontalAlignment="Left" />
+                                </Border>
+                                <Border Background="{StaticResource GridRowBackgroundBrush}" Height="9">
+                                    <Rectangle Margin="1,0,0,0" Fill="{StaticResource AccentBrush}" 
+                                               Height="1" Width="70" HorizontalAlignment="Left" />
+                                </Border>
+                                <Border Grid.Row="1" Background="{StaticResource AlternatingRowBackground}" Height="9">
+                                    <Rectangle Margin="1,0,0,0" Fill="{StaticResource AccentBrush}" 
+                                               Height="1" Width="85" HorizontalAlignment="Left" />
+                                </Border>
+                                <Border Background="{StaticResource GridRowBackgroundBrush}" Height="9">
+                                    <Rectangle Margin="1,0,0,0" Fill="{StaticResource AccentBrush}" 
+                                               Height="1" Width="70" HorizontalAlignment="Left" />
+                                </Border>
+                                <Border Grid.Row="1" Background="{StaticResource AlternatingRowBackground}" Height="9">
+                                    <Rectangle Margin="1,0,0,0" Fill="{StaticResource AccentBrush}" 
+                                               Height="1" Width="85" HorizontalAlignment="Left" />
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+                <Border Background="{StaticResource NavBackgroundBrush}" 
+                        Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
+                    <StackPanel>
+                        <Border VerticalAlignment="Top" Height="20">
+                            <Rectangle Fill="{StaticResource DynamicMarkerBrush}" 
+                                       VerticalAlignment="Center" Height="5" Margin="5,0,40,0"/>
+                        </Border>
+                        <Border Background="{StaticResource AccentBrush}" 
+                                VerticalAlignment="Top" Height="20">
+                            <Rectangle VerticalAlignment="Center" Height="4" Margin="5,0,20,0" Fill="White" />
+                        </Border>
+                        <Border Background="Transparent" VerticalAlignment="Top" Height="20">
+                            <Rectangle Fill="{StaticResource DynamicMarkerBrush}" VerticalAlignment="Center" Height="4" Margin="5,0,20,0"/>
+                        </Border>
+                        <Border Background="Transparent" VerticalAlignment="Top" Height="20">
+                            <Rectangle Fill="{StaticResource DynamicMarkerBrush}" VerticalAlignment="Center" Height="4" Margin="5,0,20,0"/>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

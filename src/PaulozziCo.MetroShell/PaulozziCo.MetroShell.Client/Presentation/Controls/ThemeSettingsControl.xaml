@@ -1,0 +1,192 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+    xmlns:converters="clr-namespace:PaulozziCo.MetroShell.Presentation.Converters"
+    xmlns:local="clr-namespace:PaulozziCo.MetroShell.Presentation.Controls"
+    xmlns:model="clr-namespace:PaulozziCo.MetroShell.Model"
+    xmlns:utilities="clr-namespace:PaulozziCo.MetroShell.Utilities"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    mc:Ignorable="d"
+    x:Class="PaulozziCo.MetroShell.Presentation.Controls.ThemeSettingsControl"
+    d:DesignWidth="1200" d:DesignHeight="650">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/Brushes.xaml" />
+                <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/OtherStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
+            <model:ThemeSettings x:Key="ThemeSettings"/>
+            <model:ThemePaletteControlerHost x:Key="ThemePaletteControlerHost"/>
+            <System:String x:Key="MainHeaderText1">settings</System:String>
+            <System:String x:Key="HeaderThemeColorsText">theme colors</System:String>
+            <System:String x:Key="ColorsText">Colors</System:String>
+            <System:String x:Key="BackgroudColorsText">Background colors</System:String>
+            <System:String x:Key="RibbonPositionText">Ribbon position</System:String>
+            <System:String x:Key="HeaderShowScreenTitleText">Show screen title</System:String>
+            <System:String x:Key="HeaderEffectsText">effects</System:String>
+            <System:String x:Key="ShowOpenEffectText">Show open effect</System:String>
+            <System:String x:Key="ShowCloseEffectText">Show close effect</System:String>
+            <System:String x:Key="ShowPageChangeEffectText">Show page change effect</System:String>
+            
+            <converters:LocalizedStringsConverter x:Key="LocalizedStringsConverter" />
+            <converters:BooleanToTextConverter x:Key="BooleanToTextConverter" />
+            <converters:RibbonPositionToPropertyConverter x:Key="RibbonPositionToPropertyConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot">
+        <Grid Background="White" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="7,15,0,0" Text="{Binding Converter={StaticResource LocalizedStringsConverter}, Source={StaticResource MainHeaderText1}}" 
+                       FontSize="56" Foreground="Black" FontFamily="/PaulozziCo.MetroShell.Client;component/Presentation/Fonts/segoeuil.ttf#Segoe UI Light" d:LayoutOverrides="Width, Height" Grid.Column="1"/>
+            <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" BorderThickness="0" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" MinWidth="500"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="100" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <!--l header-->
+                    <TextBlock HorizontalAlignment="Left" Margin="8,4,8,8" 
+                               Text="{Binding Converter={StaticResource LocalizedStringsConverter}, Source={StaticResource HeaderThemeColorsText}}" 
+                               FontFamily="/PaulozziCo.MetroShell.Client;component/Presentation/Fonts/segoeuil.ttf#Segoe UI Light" 
+                               FontSize="26.667" 
+                               Foreground="Black"/>
+                    <!--l container-->
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <local:LightSwitchUI_Mockup x:Name="lightSwitchUI_Mockup" Margin="8" />
+                        <TextBlock HorizontalAlignment="Left" Margin="8,0,0,0" Grid.Row="1" VerticalAlignment="Center" 
+                                   FontFamily="/PaulozziCo.MetroShell.Client;component/Presentation/Fonts/segoeui.ttf#Segoe UI" 
+                                   FontSize="16" Foreground="#FF6A6A6A" 
+                                   Text="{Binding Converter={StaticResource LocalizedStringsConverter}, Source={StaticResource BackgroudColorsText}}"/>
+                        <StackPanel Margin="8" Grid.Row="2">
+                            <ListBox BorderBrush="{StaticResource AccentBrush}" 
+                                     utilities:ListBoxFix.SelectedItemsBinding="True"
+                                     SelectedIndex="{Binding Path=SelectedBackgroudIndex, Source={StaticResource ThemePaletteControlerHost}, Mode=TwoWay}"
+                                     ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}" 
+                                     Style="{StaticResource ListBoxChooseBackgroundStyle}" 
+                                     ItemContainerStyle="{StaticResource ListBoxChooseBackgroundItemStyle}" 
+                                     x:Name="listBoxChooseBackgroud">
+                                <ListBoxItem Background="{StaticResource MainBrush}"
+                                             BorderBrush="{StaticResource AccentBrush}"/>
+                                <ListBoxItem Background="{StaticResource BackgroundAccentBrush}" 
+                                             BorderBrush="{StaticResource AccentBrush}"/>
+                            </ListBox>
+                        </StackPanel>
+                        <TextBlock HorizontalAlignment="Left" Margin="8,0,0,0" Grid.Row="3" 
+                                   Text="{Binding Converter={StaticResource LocalizedStringsConverter}, Source={StaticResource ColorsText}}"
+                                   VerticalAlignment="Center" FontFamily="/PaulozziCo.MetroShell.Client;component/Presentation/Fonts/segoeui.ttf#Segoe UI" 
+                                   FontSize="16" Foreground="#FF6A6A6A"/>
+                        <local:ColorSlider x:Name="colorSlider" Height="40" Margin="1,8,2,20" 
+                                           ColorsCollection="{Binding Path=DisplayColorCollection, Source={StaticResource ThemePaletteControlerHost}}"
+                                           Value="{Binding Path=SelectedColorIndex, Source={StaticResource ThemePaletteControlerHost}, Mode=TwoWay}"
+                                           VerticalAlignment="Bottom" Grid.Row="4" />
+                    </Grid>
+                    <!--r header-->
+                    <TextBlock HorizontalAlignment="Left" 
+                               Margin="8,4,8,8" 
+                               TextWrapping="Wrap" 
+                               Text="{Binding Converter={StaticResource LocalizedStringsConverter}, Source={StaticResource HeaderEffectsText}}" 
+                               FontFamily="/PaulozziCo.MetroShell.Client;component/Presentation/Fonts/segoeuil.ttf#Segoe UI Light" 
+                               FontSize="26.667" Foreground="Black" Grid.Column="2"/>
+                    <!--r group-->
+                    <Grid Grid.Column="2" Margin="8,8,8,20" Grid.Row="1" HorizontalAlignment="Left">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0">
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizedStringsConverter}, Source={StaticResource RibbonPositionText}}" 
+                                       FontFamily="/PaulozziCo.MetroShell.Client;component/Presentation/Fonts/segoeui.ttf#Segoe UI" 
+                                       FontSize="13.333" Foreground="Gray" Margin="0,10"/>
+                            <Grid>
+                                <TextBlock Text="{Binding Source={StaticResource ThemeSettings}, Path=Settings.RibbonPositionValue, Converter={StaticResource RibbonPositionToPropertyConverter}}" 
+                                           HorizontalAlignment="Left" 
+                                           FontFamily="/PaulozziCo.MetroShell.Client;component/Presentation/Fonts/segoeui.ttf#Segoe UI" FontSize="13.333" FontWeight="Bold"/>
+                                <CheckBox x:Name="chkRibbonPosition" Style="{StaticResource RibbonPositionCheckBoxTemplate}" HorizontalAlignment="Right" 
+                                          IsChecked="{Binding Source={StaticResource ThemeSettings}, Path=Settings.RibbonPositionValue, Mode=TwoWay, Converter={StaticResource RibbonPositionToPropertyConverter}}"/>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1">
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizedStringsConverter}, Source={StaticResource HeaderShowScreenTitleText}}" 
+                                       FontFamily="/PaulozziCo.MetroShell.Client;component/Presentation/Fonts/segoeui.ttf#Segoe UI" 
+                                       FontSize="13.333" Foreground="Gray" Margin="0,10"/>
+                            <Grid>
+                                <TextBlock Text="{Binding IsChecked, Converter={StaticResource BooleanToTextConverter}, ElementName=chkShowPageTitle}" 
+                                           HorizontalAlignment="Left" 
+                                           FontFamily="/PaulozziCo.MetroShell.Client;component/Presentation/Fonts/segoeui.ttf#Segoe UI" FontSize="13.333" FontWeight="Bold"/>
+                                <CheckBox x:Name="chkShowPageTitle" Style="{StaticResource MetroCheckBoxControlTemplate}" HorizontalAlignment="Right" 
+                                          IsChecked="{Binding Source={StaticResource ThemeSettings}, Path=Settings.ShowScreenTitle, Mode=TwoWay}" 
+                                          IsEnabled="{Binding ElementName=chkRibbonPosition, Path=IsChecked}" />
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2">
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizedStringsConverter}, Source={StaticResource ShowOpenEffectText}}" 
+                                       FontFamily="/PaulozziCo.MetroShell.Client;component/Presentation/Fonts/segoeui.ttf#Segoe UI" FontSize="13.333" 
+                                       Foreground="Gray" Margin="0,10"/>
+                            <Grid>
+                                <TextBlock Text="{Binding IsChecked, Converter={StaticResource BooleanToTextConverter}, ElementName=chkOpenEffect}" 
+                                           HorizontalAlignment="Left" FontFamily="/PaulozziCo.MetroShell.Client;component/Presentation/Fonts/segoeui.ttf#Segoe UI" 
+                                           FontSize="13.333" FontWeight="Bold"/>
+                                <CheckBox x:Name="chkOpenEffect" Style="{StaticResource MetroCheckBoxControlTemplate}" HorizontalAlignment="Right" 
+                                          IsChecked="{Binding Source={StaticResource ThemeSettings}, Path=Settings.ShowOpenEffect, Mode=TwoWay}"/>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Grid.Row="3">
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizedStringsConverter}, Source={StaticResource ShowCloseEffectText}}" 
+                                       FontFamily="/PaulozziCo.MetroShell.Client;component/Presentation/Fonts/segoeui.ttf#Segoe UI" FontSize="13.333" 
+                                       Foreground="Gray" Margin="0,10"/>
+                            <Grid>
+                                <TextBlock Text="{Binding IsChecked, Converter={StaticResource BooleanToTextConverter}, ElementName=chkCloseEffect}" 
+                                           HorizontalAlignment="Left" FontFamily="/PaulozziCo.MetroShell.Client;component/Presentation/Fonts/segoeui.ttf#Segoe UI" 
+                                           FontSize="13.333" FontWeight="Bold"/>
+                                <CheckBox x:Name="chkCloseEffect" Style="{StaticResource MetroCheckBoxControlTemplate}" HorizontalAlignment="Right" 
+                                          IsChecked="{Binding Source={StaticResource ThemeSettings}, Path=Settings.ShowCloseEffect, Mode=TwoWay}"/>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Grid.Row="4">
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizedStringsConverter}, Source={StaticResource ShowPageChangeEffectText}}" 
+                                       FontFamily="/PaulozziCo.MetroShell.Client;component/Presentation/Fonts/segoeui.ttf#Segoe UI" 
+                                       FontSize="13.333" Foreground="Gray" Margin="0,10"/>
+                            <Grid>
+                                <TextBlock Text="{Binding IsChecked, Converter={StaticResource BooleanToTextConverter}, ElementName=chkPageChangeEffect}" 
+                                           HorizontalAlignment="Left" FontFamily="/PaulozziCo.MetroShell.Client;component/Presentation/Fonts/segoeui.ttf#Segoe UI" 
+                                           FontSize="13.333" FontWeight="Bold"/>
+                                <CheckBox x:Name="chkPageChangeEffect" Style="{StaticResource MetroCheckBoxControlTemplate}" HorizontalAlignment="Right" 
+                                          IsChecked="{Binding Source={StaticResource ThemeSettings}, Path=Settings.ShowPageChangeEffect, Mode=TwoWay}"/>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

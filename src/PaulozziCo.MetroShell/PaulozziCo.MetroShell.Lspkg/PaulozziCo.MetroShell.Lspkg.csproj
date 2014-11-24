@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyName>PaulozziCo.MetroShell</AssemblyName>
+    <RootNamespace>PaulozziCo.MetroShell</RootNamespace>
+    <OutputType>Library</OutputType>
+    <ProjectTypeGuids>{5D239018-5547-433D-B38B-A6DADFE8EC12};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{5DF9FAA4-8921-4FDA-B949-BBC225921811}</ProjectGuid>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <CopyBuildOutputToOutputDirectory>false</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
+    <LightSwitchVersion>v2.0</LightSwitchVersion>
+    <CreateLspkg>true</CreateLspkg>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PaulozziCo.MetroShell.Client\PaulozziCo.MetroShell.Client.csproj">
+      <Name>PaulozziCo.MetroShell.Client</Name>
+      <LspkgClientContent>true</LspkgClientContent>
+    </ProjectReference>
+    <ProjectReference Include="..\PaulozziCo.MetroShell.Client.Design\PaulozziCo.MetroShell.Client.Design.csproj">
+      <Name>PaulozziCo.MetroShell.Client.Design</Name>
+      <LspkgClientDebugOnlyContent>true</LspkgClientDebugOnlyContent>
+    </ProjectReference>
+    <ProjectReference Include="..\PaulozziCo.MetroShell.Common\PaulozziCo.MetroShell.Common.csproj">
+      <Name>PaulozziCo.MetroShell.Common</Name>
+      <LspkgClientContent>true</LspkgClientContent>
+      <LspkgIDEContent>true</LspkgIDEContent>
+      <LspkgServerContent>true</LspkgServerContent>
+    </ProjectReference>
+    <ProjectReference Include="..\PaulozziCo.MetroShell.Design\PaulozziCo.MetroShell.Design.csproj">
+      <Name>PaulozziCo.MetroShell.Design</Name>
+      <LspkgIDEContent>true</LspkgIDEContent>
+    </ProjectReference>
+    <ProjectReference Include="..\PaulozziCo.MetroShell.Server\PaulozziCo.MetroShell.Server.csproj">
+      <Name>PaulozziCo.MetroShell.Server</Name>
+      <LspkgServerContent>true</LspkgServerContent>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\LightSwitch\$(LightSwitchVersion)\Microsoft.LightSwitch.Toolkit.targets" />
+</Project>

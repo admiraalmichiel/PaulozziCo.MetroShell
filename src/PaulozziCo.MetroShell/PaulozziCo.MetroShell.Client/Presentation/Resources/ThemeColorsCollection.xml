@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ThemeCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Themes>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#F3B200" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#232323" />
+        <ColorResource Key="BackgroundAccentColor" Value="#1D1D1D" />
+        <ColorResource Key="SecundaryAccentColor" Value="#2E2E2E" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#77B900" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#232323" />
+        <ColorResource Key="BackgroundAccentColor" Value="#1D1D1D" />
+        <ColorResource Key="SecundaryAccentColor" Value="#2E2E2E" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#2572EB" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#232323" />
+        <ColorResource Key="BackgroundAccentColor" Value="#1D1D1D" />
+        <ColorResource Key="SecundaryAccentColor" Value="#2E2E2E" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#AD103C" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#232323" />
+        <ColorResource Key="BackgroundAccentColor" Value="#1D1D1D" />
+        <ColorResource Key="SecundaryAccentColor" Value="#2E2E2E" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#632F00" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#2E1700" />
+        <ColorResource Key="BackgroundAccentColor" Value="#261300" />
+        <ColorResource Key="SecundaryAccentColor" Value="#543A24" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#B01E00" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#4E0000" />
+        <ColorResource Key="BackgroundAccentColor" Value="#380000" />
+        <ColorResource Key="SecundaryAccentColor" Value="#61292B" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#C1004F" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#4E0038" />
+        <ColorResource Key="BackgroundAccentColor" Value="#40002E" />
+        <ColorResource Key="SecundaryAccentColor" Value="#662C58" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#7200AC" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#2D004E" />
+        <ColorResource Key="BackgroundAccentColor" Value="#250040" />
+        <ColorResource Key="SecundaryAccentColor" Value="#4C2C66" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#4617B4" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#1F0068" />
+        <ColorResource Key="BackgroundAccentColor" Value="#180052" />
+        <ColorResource Key="SecundaryAccentColor" Value="#423173" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#006AC1" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#001E4E" />
+        <ColorResource Key="BackgroundAccentColor" Value="#001940" />
+        <ColorResource Key="SecundaryAccentColor" Value="#2C4566" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#008287" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#004D60" />
+        <ColorResource Key="BackgroundAccentColor" Value="#004050" />
+        <ColorResource Key="SecundaryAccentColor" Value="#306772" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#199900" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#004A00" />
+        <ColorResource Key="BackgroundAccentColor" Value="#003E00" />
+        <ColorResource Key="SecundaryAccentColor" Value="#2D652B" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#00C13F" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#15992A" />
+        <ColorResource Key="BackgroundAccentColor" Value="#128425" />
+        <ColorResource Key="SecundaryAccentColor" Value="#3A9548" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#FF981D" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#E56C19" />
+        <ColorResource Key="BackgroundAccentColor" Value="#C35D15" />
+        <ColorResource Key="SecundaryAccentColor" Value="#C27D4F" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#FF2E12" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#B81B1B" />
+        <ColorResource Key="BackgroundAccentColor" Value="#9E1716" />
+        <ColorResource Key="SecundaryAccentColor" Value="#AA4344" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#FF1D77" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#B81B6C" />
+        <ColorResource Key="BackgroundAccentColor" Value="#9E165B" />
+        <ColorResource Key="SecundaryAccentColor" Value="#AA4379" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#AA40FF" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#691BB8" />
+        <ColorResource Key="BackgroundAccentColor" Value="#57169A" />
+        <ColorResource Key="SecundaryAccentColor" Value="#7F6E94" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#1FAEFF" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#1B58B8" />
+        <ColorResource Key="BackgroundAccentColor" Value="#16499A" />
+        <ColorResource Key="SecundaryAccentColor" Value="#6E7E94" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#56C5FF" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#569CE3" />
+        <ColorResource Key="BackgroundAccentColor" Value="#4294DE" />
+        <ColorResource Key="SecundaryAccentColor" Value="#6BA5E7" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#00D8CC" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#00AAAA" />
+        <ColorResource Key="BackgroundAccentColor" Value="#008E8E" />
+        <ColorResource Key="SecundaryAccentColor" Value="#439D9A" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#91D100" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#83BA1F" />
+        <ColorResource Key="BackgroundAccentColor" Value="#7BAD18" />
+        <ColorResource Key="SecundaryAccentColor" Value="#94BD4A" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#E1B700" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#D39D09" />
+        <ColorResource Key="BackgroundAccentColor" Value="#C69408" />
+        <ColorResource Key="SecundaryAccentColor" Value="#CEA539" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#FF76BC" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#E064B7" />
+        <ColorResource Key="BackgroundAccentColor" Value="#DE4AAD" />
+        <ColorResource Key="SecundaryAccentColor" Value="#E773BD" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#00A3A3" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#696969" />
+        <ColorResource Key="BackgroundAccentColor" Value="#585858" />
+        <ColorResource Key="SecundaryAccentColor" Value="#696969" />
+      </Colors>
+    </ColorPalette>
+    <ColorPalette>
+      <Colors>
+        <ColorResource Key="AccentColor" Value="#FE7C22" />
+        <ColorResource Key="BasicColor" Value="#D6D4D4" />
+        <ColorResource Key="MainColor" Value="#FFFFFF" />
+        <ColorResource Key="MarkerColor" Value="#000000" />
+        <ColorResource Key="StrongColor" Value="#767676" />
+        <ColorResource Key="ValidationColor" Value="#DE3914" />
+        <ColorResource Key="NavigationAccentColor" Value="#696969" />
+        <ColorResource Key="BackgroundAccentColor" Value="#585858" />
+        <ColorResource Key="SecundaryAccentColor" Value="#696969" />
+      </Colors>
+    </ColorPalette>
+  </Themes>
+</ThemeCollection>

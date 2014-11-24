@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <Identity Id="PaulozziCo.MetroShell" Version="2.0.00" Language="en-US" Publisher="Paulozzi &amp; Co." />
+    <DisplayName>PaulozziCo.MetroShell</DisplayName>
+    <Description xml:space="preserve">Metro Shell and Metro Theme allow you can change the background and colour with amazing colors palette in the best metro style. All of the personalisation settings you know and love are still here too, and you can still use them to personalise the apps. (Beta version)</Description>
+    <Icon>metro_theme_shell_icon.png</Icon>
+    <PreviewImage>metro_theme_shell_prev.png</PreviewImage>
+    <Tags>Visual Studio LightSwitch, Metro</Tags>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[11.0,12.0)" />
+  </Installation>
+  <Dependencies>
+  </Dependencies>
+  <Assets>
+    <Asset Type="LightSwitchPackage" d:Source="Project" d:ProjectName="PaulozziCo.MetroShell.Lspkg" Path="|PaulozziCo.MetroShell.Lspkg;LspkgOutputGroup|" />
+  </Assets>
+</PackageManifest>

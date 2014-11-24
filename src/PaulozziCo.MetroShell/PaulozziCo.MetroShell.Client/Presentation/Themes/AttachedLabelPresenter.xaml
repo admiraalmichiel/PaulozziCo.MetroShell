@@ -1,0 +1,105 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:framework="clr-namespace:Microsoft.LightSwitch.Presentation.Framework;assembly=Microsoft.LightSwitch.Client"
+    xmlns:internalstyles="clr-namespace:Microsoft.LightSwitch.Presentation.Framework.Styles.Internal;assembly=Microsoft.LightSwitch.Client"
+    xmlns:internalconverters="clr-namespace:Microsoft.LightSwitch.Presentation.Framework.Converters.Internal;assembly=Microsoft.LightSwitch.Client"
+    xmlns:converters="clr-namespace:PaulozziCo.MetroShell.Presentation.Converters"
+    xmlns:windows="clr-namespace:System.Windows;assembly=System.Windows">
+
+    <internalstyles:RequiredFontStyleFontWeightConverter x:Key="RequiredFontStyleFontWeightConverter"/>
+    <converters:TextToUpperConverter x:Key="ToUpperCaseConverter"/>
+
+    <!--The attached label presenter is the control that places labels next to controls.  It is restyled here to put the label 
+         text in upper case. The style is applied using implicit styles, so do not give the style a key -->
+    <Style TargetType="framework:AttachedLabelPresenter">
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="framework:AttachedLabelPresenter">
+                    <TextBlock x:Name="TextBlock" 
+                               Text="{Binding DisplayNameWithPunctuation, RelativeSource={RelativeSource TemplatedParent}}"
+                               VerticalAlignment="Top"
+                               HorizontalAlignment="Left"
+                               TextWrapping="Wrap"                                                              
+                               FontWeight="{Binding Converter={StaticResource RequiredFontStyleFontWeightConverter}}">
+                           <windows:VisualStateManager.VisualStateGroups>
+                            <windows:VisualStateGroup x:Name="AttachedLabelPositionStates">
+                                <windows:VisualState x:Name="None"/>
+                                <windows:VisualState x:Name="LeftAligned">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock" Storyboard.TargetProperty="Margin" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <windows:Thickness>0,3,5,0</windows:Thickness>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock" Storyboard.TargetProperty="HorizontalAlignment" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Left"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock" Storyboard.TargetProperty="VerticalAlignment" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Top"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </windows:VisualState>
+                                <windows:VisualState x:Name="RightAligned" >
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock" Storyboard.TargetProperty="Margin" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <windows:Thickness>0,3,5,0</windows:Thickness>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock" Storyboard.TargetProperty="HorizontalAlignment" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Right"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock" Storyboard.TargetProperty="VerticalAlignment" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Top"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </windows:VisualState>
+                                <windows:VisualState x:Name="Top" >
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock" Storyboard.TargetProperty="Margin" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <windows:Thickness>0,0,0,5</windows:Thickness>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock" Storyboard.TargetProperty="HorizontalAlignment" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Left"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock" Storyboard.TargetProperty="VerticalAlignment" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Bottom"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </windows:VisualState>
+                                <windows:VisualState x:Name="Bottom">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock" Storyboard.TargetProperty="Margin" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <windows:Thickness>0,5,0,0</windows:Thickness>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock" Storyboard.TargetProperty="HorizontalAlignment" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Left"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextBlock" Storyboard.TargetProperty="VerticalAlignment" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Top"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </windows:VisualState>
+                            </windows:VisualStateGroup>
+                        </windows:VisualStateManager.VisualStateGroups>
+
+                    </TextBlock>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

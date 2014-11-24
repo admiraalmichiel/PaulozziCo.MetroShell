@@ -1,0 +1,58 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:slu="clr-namespace:Microsoft.LightSwitch.SilverlightUtilities.Controls.Internal;assembly=Microsoft.LightSwitch.Client"
+    xmlns:fm="clr-namespace:Microsoft.LightSwitch.Presentation.Framework;assembly=Microsoft.LightSwitch.Client"
+    xmlns:conv="clr-namespace:PaulozziCo.MetroShell.Presentation.Converters"
+    xmlns:fmwk="clr-namespace:Microsoft.LightSwitch.Presentation.Framework.Converters.Internal;assembly=Microsoft.LightSwitch.Client">
+
+    <conv:ValidationBrushConverter x:Key="ValidationBrushConverter" ErrorBrushName="ValidationPopupErrorBackgroundBrush" WarningBrushName="ValidationPopupMessageBackgroundBrush"/>
+    <conv:ValidationResultToTemplateConverter x:Key="ValidationResultToTemplateConverter" ResourceDictionaryPath="presentation/shells/validationresources.xaml" />
+
+    <Style TargetType="fm:ValidationToolTip">
+        <Setter Property="Placement" Value="Right"/>
+        <Setter Property="Foreground" Value="{StaticResource ValidationPopupTextBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="fm:ValidationToolTip">
+                    <Grid x:Name="Root" Margin="5,0" RenderTransformOrigin="0,0" Opacity="0">
+                        <Grid.RenderTransform>
+                            <TranslateTransform x:Name="xform" X="-25"/>
+                        </Grid.RenderTransform>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="OpenStates">
+                                <VisualState x:Name="Closed"/>
+                                <VisualState x:Name="Open">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="xform" Storyboard.TargetProperty="X" To="0" Duration="0:0:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <ExponentialEase Exponent="6" EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="Root" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border MaxWidth="400"
+                                BorderThickness="2"
+                                BorderBrush="{StaticResource ValidationPopupErrorBorderBrush}"
+                                slu:ObservableToPropertyChangeHelper.ObservableSource="{TemplateBinding Errors}"
+                                Background="{Binding RelativeSource={RelativeSource Self}, Path=(slu:ObservableToPropertyChangeHelper.PropertyChangeOutput), Converter={StaticResource ValidationBrushConverter}}">
+                            <ItemsControl HorizontalContentAlignment="Stretch"  Margin="4,2"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          ItemsSource="{TemplateBinding Errors}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <ContentControl Content="{Binding}"
+                                                        ContentTemplate="{Binding Converter={StaticResource ValidationResultToTemplateConverter}}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

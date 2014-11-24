@@ -1,0 +1,355 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:framework="clr-namespace:Microsoft.LightSwitch.Presentation.Framework;assembly=Microsoft.LightSwitch.Client"
+    xmlns:t="clr-namespace:Microsoft.LightSwitch.Presentation.Framework.Helpers;assembly=Microsoft.LightSwitch.Client"
+    xmlns:visual="clr-namespace:Microsoft.LightSwitch.Presentation.Implementation.Controls;assembly=Microsoft.LightSwitch.Client.Internal"
+    xmlns:slup="clr-namespace:Microsoft.LightSwitch.Utilities.SilverlightUtilities;assembly=Microsoft.LightSwitch.Client"
+    xmlns:slu="clr-namespace:Microsoft.LightSwitch.SilverlightUtilities.Controls.Internal;assembly=Microsoft.LightSwitch.Client"
+    xmlns:local="clr-namespace:Microsoft.LightSwitch.Presentation.Implementation.Resources;assembly=Microsoft.LightSwitch.Client.Internal"
+    xmlns:utils="clr-namespace:Microsoft.LightSwitch.Presentation.Utilities.Internal;assembly=Microsoft.LightSwitch.Client"
+    xmlns:frameworkInternal="clr-namespace:Microsoft.LightSwitch.Presentation.Framework.Internal;assembly=Microsoft.LightSwitch.Client"
+    xmlns:shellUtils="clr-namespace:Microsoft.LightSwitch.Runtime.Shell.Framework;assembly=Microsoft.LightSwitch.Client"
+   
+    >
+
+    <local:LocalizedStrings x:Key="LocalizedStrings"/>
+    <utils:NotConverter x:Key="NotConverter" />
+    <slu:BooleanToVisibleConverter x:Key="BoolToVisibleConverter"/>
+    <slu:ValueNullVisibilityConverter x:Key="valueNullVisibilityConverter"/>
+
+    <Style x:Key="NoMarginButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="#FFCCCCCC"/>
+        <Setter Property="Foreground" Value="#404040"/>
+        <Setter Property="Padding" Value="8,5"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="#FFCCCCCC"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackgroundAnimation"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0" To="#FF6DBDD1" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Background"/>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackgroundAnimation"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To=".55" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="DisabledVisualElement"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualElement"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="Background" Background="White" CornerRadius="0">
+                            <Grid Background="{TemplateBinding Background}">
+                                <Border x:Name="BackgroundAnimation" Background="#FFDEDEDE" Opacity="0" CornerRadius="0"/>
+                            </Grid>
+                        </Border>
+                        <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <Rectangle x:Name="DisabledVisualElement" Fill="#FFFFFFFF" IsHitTestVisible="false" Opacity="0" RadiusX="0" RadiusY="0"/>
+                        <Rectangle x:Name="FocusVisualElement" IsHitTestVisible="false" Opacity="0" Stroke="#FFCCCCCC" StrokeThickness="1" RadiusX="0" RadiusY="0"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ButtonStyle" TargetType="Button" >
+        <Setter Property="Background" Value="#FFCCCCCC"/>
+        <Setter Property="Foreground" Value="#404040"/>
+        <Setter Property="Padding" Value="3"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="#FFCCCCCC"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackgroundAnimation"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0" To="#FF6DBDD1" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Background"/>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackgroundAnimation"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To=".55" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="DisabledVisualElement"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualElement"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="Background" Background="White" CornerRadius="0">
+                            <Grid Background="{TemplateBinding Background}">
+                                <Border x:Name="BackgroundAnimation" Background="#FFDEDEDE" Opacity="0" CornerRadius="0"/>
+                            </Grid>
+                        </Border>
+                        <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <Rectangle x:Name="DisabledVisualElement" Fill="#FFFFFFFF" IsHitTestVisible="false" Opacity="0" RadiusX="0" RadiusY="0"/>
+                        <Rectangle x:Name="FocusVisualElement" IsHitTestVisible="false" Opacity="0" Stroke="#FFCCCCCC" StrokeThickness="1" RadiusX="0" RadiusY="0"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Implicit style for the modal window picker.  This style denotes the appearance of the picker when it is not open. 
+         The picker dialog itself is a separate style, defined below as ModalWindowDialogContent -->
+    <Style TargetType="visual:ModalWindowPickerVisual">
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="MinWidth" Value="14" />
+        <Setter Property="MinHeight" Value="14" />
+        <Setter Property="t:SetterBindingHelper.PropertyBindings">
+            <Setter.Value>
+                <t:SetterBindingHelperCollection>
+                    <t:ContainerStateHelper Binding="{Binding ContainerState}"/>
+                </t:SetterBindingHelperCollection>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="visual:ModalWindowPickerVisual">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="ContainerStates">
+                                <VisualState x:Name="None"/>
+                                <VisualState x:Name="Cell">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.VerticalAlignment)" Storyboard.TargetName="LayoutRoot">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <VerticalAlignment>Top</VerticalAlignment>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+
+                                        <!-- In the data grid remove border and background -->
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundVisual"
+                                                                       Storyboard.TargetProperty="BorderThickness">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FocusedVisual"
+                                                                       Storyboard.TargetProperty="BorderThickness">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalBackgroundVisual"
+                                                                       Storyboard.TargetProperty="Opacity">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+
+                            <VisualStateGroup x:Name="ButtonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition To="ShowButton">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="PickerButton" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.5"/>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                    <VisualTransition To="HideButton">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="PickerButton" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.5"/>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="HideButton">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="PickerButton" Storyboard.TargetProperty="Opacity" To="0" Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="ShowButton"/>
+                            </VisualStateGroup>
+
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundVisual"
+                                                                       Storyboard.TargetProperty="BorderBrush">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TextBoxBorderMouseOverBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundVisual"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TextBoxBackgroundMouseOverBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundVisual"
+                                                                       Storyboard.TargetProperty="BorderBrush">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TextBoxBorderDisabledBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundVisual"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TextBoxBackgroundDisabledBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <!-- Normally this would be in the FocusedStates, but that doesn't seem to work for this control -->
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="FocusedVisual"
+                                                        Storyboard.TargetProperty="Opacity" 
+                                                        To="1" Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Grid x:Name="LayoutRoot">
+                            <Border x:Name="NormalBackgroundVisual"
+                                    BorderThickness="0"
+                                    CornerRadius="0"
+                                    BorderBrush="{StaticResource TextBoxBorderBrush}"
+                                    Background="{StaticResource TextBoxBackgroundBrush}"/>
+                            <Border x:Name="BackgroundVisual"
+                                    CornerRadius="0"
+                                    BorderThickness="0"
+                                    BorderBrush="Transparent"
+                                    Background="Transparent"/>
+                            <Border x:Name="FocusedVisual" Opacity="0" 
+                                    CornerRadius="0"
+                                    BorderThickness="0"
+                                    BorderBrush="#FFCCCCCC"
+                                    Background="{StaticResource TextBoxBackgroundFocusedBrush}"/>
+
+                            <Grid Margin="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Width="16" Height="16" Margin="3, 0, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Visibility="{Binding DataError, Converter={StaticResource valueNullVisibilityConverter}}"
+                                       Source="/Microsoft.LightSwitch.Client;component/Screens/ScreenPresentation/InternalFramework/Resources/Resources/DataError.png"/>
+
+                                <framework:ContentItemPresenter x:Name="SelectedItemPresenter" Grid.Column="1" MinWidth="75"/>
+
+                                <!-- Invisible button to handle Click event -->
+                                <Button IsTabStop="False" Opacity="0" Grid.Column="1"
+                                        MinWidth="21" MinHeight="21"
+                                        Command="{Binding ShowPickerWindowCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Visibility="{Binding ShowAsLink, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisibleConverter}, ConverterParameter='true'}"
+                                        Style="{StaticResource ButtonStyle}"/>
+
+                                <Button x:Name="PickerButton"
+                                        MinWidth="21" MinHeight="21"
+                                        Grid.Column="2"
+                                        AutomationProperties.AutomationId="{Binding Name, StringFormat=Control:\{0\}}"
+                                        AutomationProperties.Name="{Binding DisplayName}"
+                                        AutomationProperties.HelpText="{Binding Path=Strings.ModalWindowPickerVisual_PickerButtonToolTip, Source={StaticResource LocalizedStrings}}"
+                                        Command="{Binding ShowPickerWindowCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Content="{Binding Path=Strings.ModalWindowPickerVisual_PickerButtonCaption, Source={StaticResource LocalizedStrings}}"
+                                        ToolTipService.ToolTip="{Binding Path=Strings.ModalWindowPickerVisual_PickerButtonToolTip, Source={StaticResource LocalizedStrings}}"
+                                        Style="{StaticResource ButtonStyle}" />
+
+                            </Grid>
+                            <slup:ValidatableContentControl ValidationDataSource="{Binding Details.Value}"/>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="DialogTitleTemplate">
+        <TextBlock Text="{Binding DisplayName}"/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DialogContentTemplate">
+        <visual:ModalWindowDialogContent/>
+    </DataTemplate>
+
+    <!-- Style for any groups displayed as a modal dialog-->
+    <Style TargetType="visual:ModalWindowDialogContent">
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="visual:ModalWindowDialogContent">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Margin="5,5,5,0" Padding="15,10" BorderThickness="0" CornerRadius="0" Background="{StaticResource ScreenBackgroundBrush}">
+                            <visual:RowsLayoutVisual />
+                        </Border>
+                        <framework:CommandGroupPresenter Grid.Row="1" Commands="{Binding CommandItems}" Margin="5,0,5,6"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ChildWindowStyle" TargetType="shellUtils:ScreenChildWindow" BasedOn="{StaticResource ModalWindowStyle}">
+        <Setter Property="ContentTemplate" Value="{StaticResource DialogContentTemplate}" />
+        <Setter Property="TitleTemplate" Value="{StaticResource DialogTitleTemplate}" />
+    </Style>
+
+    <!-- Style for the modal window's 'Open' button -->
+    <Style x:Key="ModalWindowVisualStyle" TargetType="visual:ModalWindowVisual">
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="ModalWindowStyle" Value="{StaticResource ChildWindowStyle}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="visual:ModalWindowVisual">
+                    <Button x:Name="ShowDialogButton"
+                        IsTabStop="{TemplateBinding NeedTabStop}"
+                        AutomationProperties.AutomationId="{Binding Name, StringFormat=Control:\{0\}}"
+                        AutomationProperties.Name="{Binding DisplayName}"
+                        AutomationProperties.HelpText="{Binding Description}"
+                        Content="{Binding DisplayName}" 
+                        ToolTipService.ToolTip="{Binding Description}"
+                        Visibility="{Binding Properties[Microsoft.LightSwitch:ModalWindow/ShowButton], Converter={StaticResource booleanToVisibilityConverter}}"
+                        Style="{StaticResource NoMarginButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="visual:ModalWindowVisual" BasedOn="{StaticResource ModalWindowVisualStyle}"/>
+
+    <!-- Style used when a modal window appears inside the data grid -->
+    <Style TargetType="visual:DisplayModeModalWindowVisual" BasedOn="{StaticResource ModalWindowVisualStyle}">
+        <Setter Property="VerticalAlignment" Value="Top"  />
+        <Setter Property="HorizontalAlignment" Value="Center"  />
+        <Setter Property="NeedTabStop" Value="False"  />
+    </Style>
+
+</ResourceDictionary>

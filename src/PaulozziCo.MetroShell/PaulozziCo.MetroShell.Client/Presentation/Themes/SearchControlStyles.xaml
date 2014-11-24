@@ -1,0 +1,217 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:slu="clr-namespace:Microsoft.LightSwitch.SilverlightUtilities.Controls.Internal;assembly=Microsoft.LightSwitch.Client"
+    xmlns:u="clr-namespace:Microsoft.LightSwitch.Presentation.Implementation.Controls;assembly=Microsoft.LightSwitch.Client.Internal"
+    xmlns:r="clr-namespace:Microsoft.LightSwitch.Presentation.Implementation.Resources;assembly=Microsoft.LightSwitch.Client.Internal">
+    
+    <!-- The search control is used inside the list and grid.  The infotextbox is a utility control that is responsible for 
+         toggling the search text between 'Search' when there is no search input and the input text when it is present -->
+    <Style x:Key="MetroSearchTextBoxStyle" TargetType="slu:InfoTextBox">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="slu:InfoTextBox">
+                    <Grid Background="{TemplateBinding Background}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="InfoTextStates">
+                                <VisualState x:Name="InfoTextHiding">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="InfoTextElement" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="InfoTextShowing">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="InfoTextElement" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <TextBox x:Name="TextBox" Padding="{TemplateBinding Padding}" BorderThickness="0" BorderBrush="Transparent" Style="{StaticResource TextBoxWithValidationInDataGridStyle}" VerticalAlignment="Stretch" Margin="0"/>
+                        <TextBlock x:Name="InfoTextElement" Text="{TemplateBinding InfoText}" Padding="{TemplateBinding Padding}" Foreground="{StaticResource BasicBrush}" Visibility="Visible" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- The search control used in the list and grid. -->
+    <Style TargetType="u:SearchControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="u:SearchControl">
+                    <Border BorderBrush="{StaticResource TextBoxBorderBrush}"
+                            Background="{StaticResource TextBoxBackgroundBrush}"
+                            BorderThickness="1">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="SearchStates">
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchTextElement" Storyboard.TargetProperty="IsEnabled">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="False"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchButtonElement" Storyboard.TargetProperty="IsEnabled">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="False"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ClearButtonElement" Storyboard.TargetProperty="IsEnabled">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="False"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Executable">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ClearButtonElement" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Executed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchButtonElement" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ClearButtonElement" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Executing">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchTextElement" Storyboard.TargetProperty="IsEnabled">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="False"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchButtonElement" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ClearButtonElement" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Searchable">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchButtonElement" Storyboard.TargetProperty="IsEnabled">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="False"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ClearButtonElement" Storyboard.TargetProperty="IsEnabled">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="False"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ClearButtonElement" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="21"/>
+                            </Grid.ColumnDefinitions>
+
+                            <slu:InfoTextBox
+                                x:Name="SearchTextElement"
+                                AutomationProperties.AutomationId="SearchTextBox"
+                                Grid.Column="0"
+                                Margin="3,0,3,0"
+                                DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                Style="{StaticResource MetroSearchTextBoxStyle}"
+                                InfoText="{TemplateBinding SearchLabel}"
+                                VerticalContentAlignment="Center"
+                                ToolTipService.ToolTip="{TemplateBinding SearchLabel}"
+                                Background="{TemplateBinding Background}"
+                                VerticalAlignment="Center"
+                                AutomationProperties.HelpText="{TemplateBinding SearchLabel}"/>
+                            <Button
+                                x:Name="SearchButtonElement"
+                                AutomationProperties.AutomationId="SearchButton"
+                                Grid.Column="1"
+                                ToolTipService.ToolTip="{Binding Path=Strings.SearchControl_SearchToolTip, Source={StaticResource LocalizedStrings}}"
+                                AutomationProperties.HelpText="{Binding Path=Strings.SearchControl_SearchToolTip, Source={StaticResource LocalizedStrings}}">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup x:Name="CommonStates">
+                                                    <VisualState x:Name="Normal"/>
+                                                    <VisualState x:Name="MouseOver">
+                                                        <Storyboard>
+                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                                            </ObjectAnimationUsingKeyFrames>
+                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MouseOverIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                                            </ObjectAnimationUsingKeyFrames>
+                                                        </Storyboard>
+                                                    </VisualState>
+                                                    <VisualState x:Name="Pressed">
+                                                        <Storyboard>
+                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                                            </ObjectAnimationUsingKeyFrames>
+                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MouseOverIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                                            </ObjectAnimationUsingKeyFrames>
+                                                        </Storyboard>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+                                            <Image x:Name="NormalIcon" Height="12" Width="12"
+                                                   Source="/PaulozziCo.MetroShell.Client;component/Presentation/Icons/SearchSmall.png" Stretch="UniformToFill"/>
+                                            <Image x:Name="MouseOverIcon" Visibility="Collapsed" Height="12" Width="12"
+                                                   Source="/PaulozziCo.MetroShell.Client;component/Presentation/Icons/SearchSmall_Hover.png" Stretch="UniformToFill"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Button.Template>
+
+                            </Button>
+                            <Button x:Name="ClearButtonElement" Grid.Column="1" Visibility="Collapsed">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup x:Name="CommonStates">
+                                                    <VisualState x:Name="Normal"/>
+                                                    <VisualState x:Name="MouseOver">
+                                                        <Storyboard>
+                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                                            </ObjectAnimationUsingKeyFrames>
+                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MouseOverIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                                            </ObjectAnimationUsingKeyFrames>
+                                                        </Storyboard>
+                                                    </VisualState>
+                                                    <VisualState x:Name="Pressed">
+                                                        <Storyboard>
+                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                                            </ObjectAnimationUsingKeyFrames>
+                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MouseOverIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                                            </ObjectAnimationUsingKeyFrames>
+                                                        </Storyboard>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+                                            <Image x:Name="NormalIcon" Height="10" Width="10"
+                                                   Source="/PaulozziCo.MetroShell.Client;component/Presentation/Icons/SearchCancel.png" Stretch="UniformToFill"/>
+                                            <Image x:Name="MouseOverIcon" Visibility="Collapsed" Height="10" Width="10"
+                                                   Source="/PaulozziCo.MetroShell.Client;component/Presentation/Icons/SearchCancel_Hover.png" Stretch="UniformToFill"/>
+
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

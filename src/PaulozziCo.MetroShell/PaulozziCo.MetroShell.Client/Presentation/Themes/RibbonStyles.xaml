@@ -1,0 +1,441 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" 
+    xmlns:System="clr-namespace:System;assembly=mscorlib" 
+    xmlns:converters="clr-namespace:PaulozziCo.MetroShell.Presentation.Converters"
+    xmlns:s="clr-namespace:Microsoft.LightSwitch.Runtime.Shell.Implementation.Standard;assembly=Microsoft.LightSwitch.Client.Internal"
+    xmlns:primitives="clr-namespace:System.Windows.Controls.Primitives;assembly=System.Windows.Controls" 
+    xmlns:framework="clr-namespace:Microsoft.LightSwitch.Presentation.Framework;assembly=Microsoft.LightSwitch.Client"
+    xmlns:fxconv="clr-namespace:Microsoft.LightSwitch.Presentation.Framework.Converters.Internal;assembly=Microsoft.LightSwitch.Client"
+    xmlns:ctl="clr-namespace:Microsoft.LightSwitch.Presentation.Implementation.Controls;assembly=Microsoft.LightSwitch.Client.Internal"
+    xmlns:style="clr-namespace:Microsoft.LightSwitch.Presentation.Framework.Helpers;assembly=Microsoft.LightSwitch.Client"
+    xmlns:fm="clr-namespace:Microsoft.LightSwitch.Presentation.Framework;assembly=Microsoft.LightSwitch.Client"
+    xmlns:slu="clr-namespace:Microsoft.LightSwitch.SilverlightUtilities.Controls.Internal;assembly=Microsoft.LightSwitch.Client"
+    xmlns:internalconverters="clr-namespace:Microsoft.LightSwitch.Presentation.Framework.Converters.Internal;assembly=Microsoft.LightSwitch.Client"    
+    xmlns:internalControls="clr-namespace:Microsoft.LightSwitch.SilverlightUtilities.Controls.Internal;assembly=Microsoft.LightSwitch.Client"
+    xmlns:internalToolkit="clr-namespace:Microsoft.LightSwitch.Presentation.Framework.Toolkit.Internal;assembly=Microsoft.LightSwitch.Client"
+    xmlns:utils="clr-namespace:Microsoft.LightSwitch.Presentation.Utilities.Internal;assembly=Microsoft.LightSwitch.Client"
+    xmlns:ShellHelpers="clr-namespace:Microsoft.LightSwitch.Runtime.Shell.Helpers;assembly=Microsoft.LightSwitch.Client"
+    xmlns:StandardShell="clr-namespace:Microsoft.LightSwitch.Runtime.Shell.Implementation.Standard;assembly=Microsoft.LightSwitch.Client.Internal"
+    xmlns:ShellResources="clr-namespace:Microsoft.LightSwitch.Runtime.Shell.Implementation.Standard.Resources;assembly=Microsoft.LightSwitch.Client.Internal">
+
+    <!-- This dictionary defines the styles that can be defined for the default shell's ribbon.  Please note that these styles will 
+         not be applied if a custom shell is used. -->
+
+    <!-- Utility converters. -->
+    <slu:ValueNullVisibilityConverter x:Key="ValueNullVisibilityConverter"/>
+    <slu:BooleanToVisibleConverter x:Key="BoolToVisibleConverter"/>
+    <!-- See TextConverters.cs -->
+    <converters:TextToLowerConverter x:Key="ToLowerConverter"/>
+    <converters:TextToUpperConverter x:Key="ToUpperConverter"/>
+
+    <!-- This converter is used to substitute Metro icons for the built-in icons for Save, refresh, etc -->
+    <converters:RibbonIconConverter x:Key="RibbonIconConverter"/>
+
+    <ShellResources:LocalizedStrings x:Key="LocalizedStrings" />
+
+    <!-- This is the single style that defines the appearance of all buttons that appear in the ribbon. The built-in shell does not
+         allow a theme to override the content templates for each ribbon button's state (collapsed, large format, small format), so
+         this style basically recreates the built-in content templates in a single control template. -->
+    <Style x:Key="ShellButtonStyle" TargetType="ButtonBase">
+        <Setter Property="Foreground" Value="{StaticResource RibbonButtonTextBrush}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="MaxWidth" Value="200"/>
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ButtonBase">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="FocusBorder" Storyboard.TargetProperty="Opacity" To="1" Duration="0"/>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FocusBorder" Storyboard.TargetProperty="BorderBrush">
+                                            <DiscreteObjectKeyFrame Value="{StaticResource RibbonButtonBorderFocusedBrush}" KeyTime="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SmallDisabledIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="0:0:0" Duration="0:0:0" Storyboard.TargetName="ForegroundSetterControl" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0.66"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="0:0:0" Duration="0:0:0" Storyboard.TargetName="SmallForegroundSetterControl" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0.66"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MouseOverIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SmallMouseOverIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SmallIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+
+                                </VisualState>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ForegroundSetterControl" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame Value="{StaticResource RibbonButtonTextMouseOverBrush}" KeyTime="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SmallForegroundSetterControl" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame Value="{StaticResource RibbonButtonTextMouseOverBrush}" KeyTime="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MouseOverIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SmallMouseOverIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SmallIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Duration="0" To="1.02" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="ActiveBorder"/>
+                                        <DoubleAnimation Duration="0" To="1.02" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="ActiveBorder"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ForegroundSetterControl" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame Value="{StaticResource RibbonButtonTextPressedBrush}" KeyTime="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SmallForegroundSetterControl" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame Value="{StaticResource RibbonButtonTextMouseOverBrush}" KeyTime="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MouseOverIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SmallMouseOverIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SmallIcon" Storyboard.TargetProperty="Visibility" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Duration="0" To="35" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationY)" Storyboard.TargetName="ActiveBorder"/>
+                                    </Storyboard>
+                                </VisualState>
+
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+
+                        <Border x:Name="ActiveBorder" 
+                                Background="{TemplateBinding Background}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                HorizontalAlignment="Stretch" 
+                                VerticalAlignment="Stretch" 
+                                Padding="2,0"
+                                Margin="1,0,2,0"
+                                CornerRadius="0">
+                            <Border.Projection>
+                                <PlaneProjection RotationX="0" RotationY="0" RotationZ="0"/>
+                            </Border.Projection>
+                            <Border.RenderTransform>
+                                <CompositeTransform/>
+                            </Border.RenderTransform>
+                            <Border x:Name="InnerGlowBorder" BorderThickness="1" CornerRadius="3"
+                                    Background="Transparent"
+                                    BorderBrush="{StaticResource RibbonButtonInnerBorderBrush}">
+                                <Grid>
+                                    <!-- The below grid defines the appearance of the full size ribbon button -->
+                                    <Grid MaxWidth="200" x:Name="FullSizeButtonContent" MinHeight="66"
+                                          Visibility="{Binding ShowSmallImage, Converter={StaticResource BoolToVisibleConverter}, ConverterParameter='true' }">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="32"/>
+                                            <RowDefinition MinHeight="24" Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <!-- There is no easy way to dynamically modify the icon source, so an icon for each state is 
+                                             defined and the visibility is set via the visual state manager -->
+                                        <Image x:Name="NormalIcon"
+                                               Grid.Row="0" Width="32" Height="32" Stretch="UniformToFill"
+                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="0" 
+                                               Source="{Binding RelativeSource={RelativeSource TemplatedParent}, 
+                                                                Path=DataContext, Converter={StaticResource RibbonIconConverter}, ConverterParameter='normal'}"/>
+                                        <Image x:Name="MouseOverIcon" 
+                                            Grid.Row="0" Width="32" Height="32" Stretch="UniformToFill"
+                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                               Visibility="Collapsed"
+                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="0" 
+                                               Source="{Binding RelativeSource={RelativeSource TemplatedParent}, 
+                                                                Path=DataContext, Converter={StaticResource RibbonIconConverter}, ConverterParameter='mouseover'}"/>
+                                        <Image x:Name="DisabledIcon" Grid.Row="0" Width="32" Height="32" Stretch="UniformToFill"
+                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="0"
+                                               Visibility="Collapsed"
+                                               Opacity="0.6"
+                                               Source="{Binding RelativeSource={RelativeSource TemplatedParent}, 
+                                                    Path=DataContext, Converter={StaticResource RibbonIconConverter}, ConverterParameter='disabled'}"/>
+
+                                        <ContentControl x:Name="ForegroundSetterControl"
+                                                        Grid.Row="1"
+                                                        FontSize="{TemplateBinding FontSize}"
+                                                        FontFamily="{TemplateBinding FontFamily}"
+                                                        Foreground="{TemplateBinding Foreground}"
+                                                        HorizontalAlignment="Center"
+                                                        IsTabStop="False">
+                                            <!-- This utility control is used to wrap the button text across two lines and trim the 
+                                                 text with '...'.  It is the functional equivalent of WPF's WordElipse.  Note that the 
+                                                 control must be contained in a content control; otherwise it will not pick up changes
+                                                 to the font or foreground made in the VSM.  (This is a bug in the control.) 
+                                            -->
+                                            <internalControls:TwoLineTrimmableTextBlock
+                                                             HorizontalAlignment="Center"
+                                                             HorizontalContentAlignment="Center"
+                                                             FontSize="{TemplateBinding FontSize}"
+                                                             FontFamily="{TemplateBinding FontFamily}"
+                                                             Text="{Binding RelativeSource={RelativeSource TemplatedParent}, 
+                                                                Path=DataContext.DisplayName}"/>
+                                            <!--Converter={StaticResource ToUpperConverter}-->
+                                        </ContentControl>
+                                    </Grid>
+                                    <!-- This grid defines the ribbon button when the developer has checked 'Use small button' in the 
+                                         designer. 
+                                    -->
+                                    <Grid MaxWidth="200" x:Name="SmallRibbonButtonContent" 
+                                          Visibility="{Binding ShowSmallImage, Converter={StaticResource BoolToVisibleConverter}}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="22"/>
+                                            <ColumnDefinition MinWidth="12" Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image x:Name="SmallIcon"
+                                               Grid.Column="0" Width="16" Height="16" Stretch="UniformToFill"
+                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="0" 
+                                               Source="{Binding RelativeSource={RelativeSource TemplatedParent}, 
+                                                                Path=DataContext, Converter={StaticResource RibbonIconConverter}, ConverterParameter='small'}"/>
+                                        <Image x:Name="SmallMouseOverIcon" 
+                                               Grid.Column="0" Width="16" Height="16" Stretch="UniformToFill"
+                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                               Visibility="Collapsed"
+                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="0" 
+                                               Source="{Binding RelativeSource={RelativeSource TemplatedParent}, 
+                                                                Path=DataContext, Converter={StaticResource RibbonIconConverter}, ConverterParameter='smallmouseover'}"/>
+                                        <Image x:Name="SmallDisabledIcon" Grid.Row="0" Width="16" Height="16" Stretch="UniformToFill"
+                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="0" 
+                                                Visibility="Collapsed"
+                                                Source="{Binding RelativeSource={RelativeSource TemplatedParent}, 
+                                                    Path=DataContext, Converter={StaticResource RibbonIconConverter}, ConverterParameter='smalldisabled'}"/>
+
+                                        <ContentControl x:Name="SmallForegroundSetterControl"
+                                                        Grid.Column="1"
+                                                        FontSize="{TemplateBinding FontSize}"
+                                                        FontFamily="{TemplateBinding FontFamily}"
+                                                        Foreground="{TemplateBinding Foreground}"
+                                                        HorizontalAlignment="Center"
+                                                        IsTabStop="False">
+                                            <internalControls:TrimmableTextBlock
+                                                             HorizontalAlignment="Left"
+                                                             HorizontalContentAlignment="Left"
+                                                             VerticalAlignment="Center"
+                                                             FontSize="{TemplateBinding FontSize}"
+                                                             FontFamily="{TemplateBinding FontFamily}"
+                                                             Text="{Binding RelativeSource={RelativeSource TemplatedParent}, 
+                                                                            Path=DataContext.DisplayName}"/>
+                                        </ContentControl>
+
+
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Border>
+
+                        <!-- Since Focus is in the FocusStates VisualState group, it needs to change
+                             a different border than ActiveBorder (controlled by CommonStates)-->
+                        <Border x:Name="FocusBorder" 
+                                Opacity="0"
+                                Background="Transparent" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                HorizontalAlignment="Stretch" 
+                                VerticalAlignment="Stretch" 
+                                CornerRadius="3"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- The ribbon group is the named collection of buttons (Data, Actions, Customize). This theme just highlights the group header
+         whenever a button within the group is hovered.  -->
+    <Style TargetType="s:RibbonGroup">
+        <Setter Property="Foreground" Value="{StaticResource RibbonGroupTextBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="s:RibbonGroup">
+                    <!-- RootGrid is a template part defined on RibbonGroup.  Be sure to use it if you wish to handle any mouse enter/leave
+                         visual states in your style
+                    -->
+                    <Grid x:Name="RootGrid">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HeaderTextBlock2" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame Value="{StaticResource RibbonGroupTextBrush}" KeyTime="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HeaderTextBlock2" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame Value="{StaticResource RibbonButtonTextMouseOverBrush}" KeyTime="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <ItemsControl Margin="0,1,1,0" ItemsSource="{TemplateBinding Items}" IsTabStop="False">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <internalToolkit:WrapPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                        <!-- There is unfortunately a bug in the RibbonGroup control.  If you use the HeaderTextBlock name 
+                             (a TemplatePart on the control) then the control will not honor any changes you make to the control in the
+                             VSM.  Just call it anything other than HeaderTextBlock
+                        -->
+                        <!--Alterado - Definido como Collapsed para remover o grupo do ribbon-->
+                        <TextBlock x:Name="HeaderTextBlock2" Grid.Row="1" 
+                                    FontFamily="{StaticResource NormalFontFamily}" 
+                                    FontSize="{StaticResource NormalFontSize}"
+                                    Foreground="{TemplateBinding Foreground}" 
+                                    Opacity="0.8"
+                                    Margin="6,0"
+                                    Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Header, Converter={StaticResource ToLowerConverter}}"
+                                    Visibility="Collapsed"
+                                    TextAlignment="Left"/>
+
+                        <!--<TextBlock x:Name="HeaderTextBlock2" Grid.Row="1" 
+                                    FontFamily="{StaticResource NormalFontFamily}" 
+                                    FontSize="{StaticResource NormalFontSize}"
+                                    Foreground="{TemplateBinding Foreground}" 
+                                    Opacity="0.8"
+                                    Margin="6,0"
+                                    Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Header, Converter={StaticResource ToLowerConverter}}"
+                                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsCompressed, Converter={StaticResource BoolToVisibleConverter}, ConverterParameter='true'}"
+                                    TextAlignment="Left"/>-->
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- The RibbonCommandBar is the toolbar that comprises the ribbon.-->
+    <Style TargetType="s:RibbonCommandBar">
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Background" Value="{StaticResource RibbonBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource RibbonBorderBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource RibbonButtonTextBrush}" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="MinWidth" Value="5" />
+        <Setter Property="MinHeight" Value="5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="s:RibbonCommandBar">
+                    <Grid x:Name="Root">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="4"/>
+                        </Grid.RowDefinitions>
+                        <!--Alterado - Incluso Padding-->
+                        <Border Grid.Row="0" 
+                                Padding="60,10,60,0"
+                                Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}" 
+                                VerticalAlignment="{TemplateBinding VerticalAlignment}">
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <ContentPresenter Grid.Column="0"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                        Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+
+                                <!-- This is the toggle button that collapses the ribbon.  It is shown here for reference only; the metro
+                                    theme hides it.  Themes may expose it, but consider omitting it if you have re-templated the RibbonButton
+                                    above, as the retemplating will prevent the button from shrinking in collapsed mode. -->
+                                <Button x:Name="RibbonSizeButton" Visibility="Collapsed"
+                                        Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                        Margin="2,0,0,3"
+                                        Style="{StaticResource TinyShellButtonStyle}"
+                                        AutomationProperties.AutomationId="RibbonSizeButton"
+                                        IsTabStop="True"
+                                        >
+                                    <ToolTipService.ToolTip>
+                                        <ToolTip>
+                                            <Grid>
+                                                <TextBlock Text="{Binding Path=Strings.MinimizeRibbon_ToolTip, Source={StaticResource LocalizedStrings}}" 
+                                                           Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsCompressed, Converter={StaticResource BoolToVisibleConverter}, ConverterParameter='true'}"
+                                                           />
+                                                <TextBlock Text="{Binding Path=Strings.ExpandRibbon_ToolTip, Source={StaticResource LocalizedStrings}}" 
+                                                           Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsCompressed, Converter={StaticResource BoolToVisibleConverter}}"
+                                                           />
+                                            </Grid>
+                                        </ToolTip>
+                                    </ToolTipService.ToolTip>
+
+                                    <Grid Width="9" Height="9">
+                                        <Image Width="9" Height="9" 
+                                                Stretch="UniformToFill" Margin="0"
+                                                Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsCompressed, Converter={StaticResource BoolToVisibleConverter}}"
+                                                Source="/Microsoft.LightSwitch.Client.Internal;component/RuntimeApplication/StandardShell/Implementations/Resources/Expand.png"/>
+
+                                        <Image Width="9" Height="9" 
+                                                Stretch="UniformToFill" Margin="0"
+                                                Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsCompressed, Converter={StaticResource BoolToVisibleConverter}, ConverterParameter='true'}"
+                                                Source="/Microsoft.LightSwitch.Client.Internal;component/RuntimeApplication/StandardShell/Implementations/Resources/Compress.png"/>
+                                    </Grid>
+                                </Button>
+                            </Grid>
+                        </Border>
+                        <Border Grid.Row="1" 
+                                Background="{StaticResource RibbonDropShadowBrush}" 
+                                BorderThickness="0"
+                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

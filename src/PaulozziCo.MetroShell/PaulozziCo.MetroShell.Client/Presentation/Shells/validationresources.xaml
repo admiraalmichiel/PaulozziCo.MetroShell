@@ -1,0 +1,45 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/Brushes.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
+  <DataTemplate x:Key="ErrorsTemplate">
+        <TextBlock Text="{Binding ErrorContent.Message}" TextWrapping="Wrap" Foreground="{StaticResource DynamicMarkerBrush}" />
+  </DataTemplate>
+
+  <DataTemplate x:Key="ExceptionTemplate">
+        <TextBlock Text="{Binding Exception.Message}" TextWrapping="Wrap" Foreground="{StaticResource DynamicMarkerBrush}"/>
+  </DataTemplate>
+
+  <DataTemplate x:Key="WarningsTemplate">
+        <TextBlock Text="{Binding ErrorContent.Message}" TextWrapping="Wrap" Foreground="{StaticResource DynamicMarkerBrush}"/>
+  </DataTemplate>
+
+  <DataTemplate x:Key="InfosTemplate">
+        <TextBlock Text="{Binding ErrorContent.Message}" TextWrapping="Wrap" Foreground="{StaticResource DynamicMarkerBrush}"/>
+  </DataTemplate>
+
+  <DataTemplate x:Key="DefaultTemplate">
+        <TextBlock Text="{Binding ErrorContent}" TextWrapping="Wrap" Foreground="{StaticResource DynamicMarkerBrush}"/>
+  </DataTemplate>
+
+  <DataTemplate x:Key="ErrorsTemplateForValidationResult">
+        <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Foreground="{StaticResource DynamicMarkerBrush}"/>
+  </DataTemplate>
+
+  <DataTemplate x:Key="WarningsTemplateForValidationResult">
+        <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Foreground="{StaticResource DynamicMarkerBrush}"/>
+  </DataTemplate>
+
+  <DataTemplate x:Key="InfosTemplateForValidationResult">
+        <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Foreground="{StaticResource DynamicMarkerBrush}"/>
+  </DataTemplate>
+
+  <DataTemplate x:Key="DefaultTemplateForValidationResult">
+        <TextBlock Text="{Binding}" TextWrapping="Wrap" Foreground="{StaticResource DynamicMarkerBrush}"/>
+  </DataTemplate>
+
+</ResourceDictionary>

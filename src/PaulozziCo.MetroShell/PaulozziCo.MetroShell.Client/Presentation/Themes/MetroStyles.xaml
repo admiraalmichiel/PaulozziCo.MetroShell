@@ -1,0 +1,25 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    >
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/AttachedLabelPresenter.xaml"/>
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/AutoCompleteStyles.xaml"/>
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/MetroTheme.xaml" />
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/ControlsStyle.xaml" />
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/OtherStyles.xaml" />
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/ValidationTooltipStyle.xaml" />
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/TextBoxStyles.xaml" />
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/ButtonStyles.xaml" />
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/DataGridStyles.xaml" />
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/RibbonStyles.xaml" />
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/SearchControlStyles.xaml" />
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/DataPagerStyle.xaml" />
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/ValidatableContentControl.xaml"/>
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/DateStyles.xaml"/>
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/ModalWindowPicker.xaml"/>
+        <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/TabControlStyles.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
+</ResourceDictionary>

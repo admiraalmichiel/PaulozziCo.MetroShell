@@ -1,0 +1,234 @@
+﻿<UserControl x:Class="PaulozziCo.MetroShell.Presentation.Controls.CurrentUserInfoControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:System="clr-namespace:System;assembly=mscorlib" 
+             xmlns:converters="clr-namespace:PaulozziCo.MetroShell.Presentation.Converters"
+             xmlns:ShellHelpers="clr-namespace:Microsoft.LightSwitch.Runtime.Shell.Helpers;assembly=Microsoft.LightSwitch.Client"
+             mc:Ignorable="d"
+             d:DesignHeight="25" d:DesignWidth="150">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PaulozziCo.MetroShell.Client;component/Presentation/Themes/MetroTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <System:String x:Key="ChangePasswordText">Change Password</System:String>
+            
+            <converters:LocalizedStringsConverter x:Key="LocalizedStringsConverter"/>
+            <converters:TextToUpperConverter x:Key="ToUpperConverter"/>
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+            <Style x:Key="UserComboBoxItemStyle" TargetType="ComboBoxItem">
+                <Setter Property="Padding" Value="3"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="VerticalContentAlignment" Value="Top"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="TabNavigation" Value="Local"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBoxItem">
+                            <Grid Background="{TemplateBinding Background}">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="MouseOver">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0" To=".35" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="fillColor"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0" To=".55" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="contentPresenter"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="SelectionStates">
+                                        <VisualState x:Name="Unselected"/>
+                                        <VisualState x:Name="Selected">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0" To=".75" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="fillColor2"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="FocusStates">
+                                        <VisualState x:Name="Focused">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Visibility" Storyboard.TargetName="FocusVisualElement">
+                                                    <DiscreteObjectKeyFrame KeyTime="0">
+                                                        <DiscreteObjectKeyFrame.Value>
+                                                            <Visibility>Visible</Visibility>
+                                                        </DiscreteObjectKeyFrame.Value>
+                                                    </DiscreteObjectKeyFrame>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Unfocused"/>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Rectangle x:Name="fillColor" Fill="LightGray" IsHitTestVisible="False" Opacity="0" RadiusY="1" RadiusX="1"/>
+                                <Rectangle x:Name="fillColor2" Fill="LightGray" IsHitTestVisible="False" Opacity="0" RadiusY="1" RadiusX="1"/>
+                                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}"/>
+                                <Rectangle x:Name="FocusVisualElement" RadiusY="1" RadiusX="1" Stroke="Transparent" StrokeThickness="0" Visibility="Collapsed"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="CurrentUserComboBox" TargetType="ComboBox" >
+                <Setter Property="Padding" Value="6,2,25,2"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="TabNavigation" Value="Once"/>
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBox">
+                            <Grid>
+                                <Grid.Resources>
+                                    <Style x:Name="comboToggleStyle" TargetType="ToggleButton">
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                        <Setter Property="Padding" Value="3"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ToggleButton">
+                                                    <Grid>
+                                                        <VisualStateManager.VisualStateGroups>
+                                                            <VisualStateGroup x:Name="CommonStates">
+                                                                <VisualState x:Name="Normal"/>
+                                                                <VisualState x:Name="MouseOver">
+                                                                    <Storyboard>
+                                                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackgroundOverlay"/>
+                                                                    </Storyboard>
+                                                                </VisualState>
+                                                                <VisualState x:Name="Pressed">
+                                                                    <Storyboard>
+                                                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Highlight"/>
+                                                                    </Storyboard>
+                                                                </VisualState>
+                                                                <VisualState x:Name="Disabled"/>
+                                                            </VisualStateGroup>
+                                                            <VisualStateGroup x:Name="CheckStates">
+                                                                <VisualState x:Name="Checked">
+                                                                    <Storyboard>
+                                                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Highlight"/>
+                                                                    </Storyboard>
+                                                                </VisualState>
+                                                                <VisualState x:Name="Unchecked"/>
+                                                            </VisualStateGroup>
+                                                            <VisualStateGroup x:Name="FocusStates">
+                                                                <VisualState x:Name="Focused">
+                                                                    <Storyboard>
+                                                                        <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Visibility" Storyboard.TargetName="FocusVisualElement">
+                                                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                                                <DiscreteObjectKeyFrame.Value>
+                                                                                    <Visibility>Visible</Visibility>
+                                                                                </DiscreteObjectKeyFrame.Value>
+                                                                            </DiscreteObjectKeyFrame>
+                                                                        </ObjectAnimationUsingKeyFrames>
+                                                                    </Storyboard>
+                                                                </VisualState>
+                                                                <VisualState x:Name="Unfocused"/>
+                                                            </VisualStateGroup>
+                                                        </VisualStateManager.VisualStateGroups>
+                                                        <Rectangle x:Name="Background" StrokeThickness="{TemplateBinding BorderThickness}" Fill="Transparent"/>
+                                                        <Rectangle x:Name="BackgroundOverlay" Opacity="0" StrokeThickness="{TemplateBinding BorderThickness}"/>
+                                                        <Rectangle x:Name="Highlight" IsHitTestVisible="false" Margin="{TemplateBinding BorderThickness}" Opacity="0" 
+                                                                   Stroke="{StaticResource TextBoxBorderFocusedBrush}" StrokeThickness="1"/>
+                                                        <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                                        <Rectangle x:Name="FocusVisualElement" IsHitTestVisible="false" Margin="1" RadiusY="3.5" RadiusX="3.5" Stroke="Transparent" StrokeThickness="1" Visibility="Collapsed"/>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Grid.Resources>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="MouseOver"/>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="00:00:00" To=".55" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="DisabledVisualElement"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="FocusStates">
+                                        <VisualState x:Name="Focused">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="00:00:00" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="FocusVisualElement"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Unfocused"/>
+                                        <VisualState x:Name="FocusedDropDown">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Duration="00:00:00" Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="PopupBorder">
+                                                    <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                        <DiscreteObjectKeyFrame.Value>
+                                                            <Visibility>Visible</Visibility>
+                                                        </DiscreteObjectKeyFrame.Value>
+                                                    </DiscreteObjectKeyFrame>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="ValidationStates">
+                                        <VisualState x:Name="Valid"/>
+                                        <VisualState x:Name="InvalidUnfocused"/>
+                                        <VisualState x:Name="InvalidFocused"/>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Border x:Name="ContentPresenterBorder">
+                                    <Grid>
+                                        <ToggleButton x:Name="DropDownToggle" BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" Margin="0" Style="{StaticResource comboToggleStyle}" VerticalAlignment="Stretch">
+                                            <Path x:Name="BtnArrow" Data="F1 M 301.14,-189.041L 311.57,-189.041L 306.355,-182.942L 301.14,-189.041 Z " HorizontalAlignment="Right" Height="4" Margin="0,0,6,0" Stretch="Uniform" Width="8"
+                                                  Fill="{StaticResource DropDownGlyphFillBrush}"/>
+                                        </ToggleButton>
+                                        <ContentPresenter x:Name="ContentPresenter" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                            <TextBlock Text=" "/>
+                                        </ContentPresenter>
+                                    </Grid>
+                                </Border>
+                                <Rectangle x:Name="DisabledVisualElement" Fill="White" IsHitTestVisible="false" Opacity="0"/>
+                                <Rectangle x:Name="FocusVisualElement" IsHitTestVisible="false" Margin="1" Opacity="0" Stroke="Transparent" StrokeThickness="1"/>
+                                <Popup x:Name="Popup">
+                                    <Border x:Name="PopupBorder" BorderThickness="0,0,4,0" HorizontalAlignment="Stretch" Height="Auto" BorderBrush="Transparent" Background="White">
+                                        <ScrollViewer x:Name="ScrollViewer" BorderThickness="0" Padding="0">
+                                            <ItemsPresenter/>
+                                        </ScrollViewer>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+        </ResourceDictionary>
+        
+    </UserControl.Resources>
+    
+    <Grid x:Name="LayoutRoot" Background="Transparent" Height="23">
+        <ComboBox SelectedIndex="-1" Name="CurrentUserComboBox"
+                  ItemContainerStyle="{StaticResource UserComboBoxItemStyle}"
+                  Style="{StaticResource CurrentUserComboBox}"
+                  Background="Transparent"
+                  Visibility="{Binding AreUserInfoAndOperationsAvailable, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <HyperlinkButton Name="changePassoworButton"
+                             ShellHelpers:ComponentViewModelService.ViewModelName="PaulozziCo.MetroShell"
+                             AutomationProperties.AutomationId="Shell:ChangePassword"
+                             AutomationProperties.HelpText="{Binding Converter={StaticResource LocalizedStringsConverter}, Source={StaticResource ChangePasswordText}}"
+                             AutomationProperties.Name="{Binding Converter={StaticResource LocalizedStringsConverter}, Source={StaticResource ChangePasswordText}}"
+                             ToolTipService.ToolTip="{Binding Converter={StaticResource LocalizedStringsConverter}, Source={StaticResource ChangePasswordText}}"
+                             Content="{Binding Converter={StaticResource LocalizedStringsConverter}, Source={StaticResource ChangePasswordText}}"/>
+        </ComboBox>
+        <TextBlock  IsHitTestVisible="False"
+                    Text="{Binding CurrentUserDisplayName, Converter={StaticResource ToUpperConverter}}"
+                    Foreground="{StaticResource TextBoxTextBrush}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left" Margin="12,0,20,0" FontFamily="{StaticResource NormalFontFamily}"/>
+    </Grid>
+</UserControl>

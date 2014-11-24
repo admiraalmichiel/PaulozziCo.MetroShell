@@ -1,0 +1,202 @@
+﻿<ResourceDictionary
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:framework="clr-namespace:Microsoft.LightSwitch.Presentation.Framework;assembly=Microsoft.LightSwitch.Client"
+                    xmlns:style="clr-namespace:Microsoft.LightSwitch.Presentation.Framework.Helpers;assembly=Microsoft.LightSwitch.Client"
+                    xmlns:visual="clr-namespace:Microsoft.LightSwitch.Presentation.Implementation.Controls;assembly=Microsoft.LightSwitch.Client.Internal"
+                    xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+                    xmlns:utils="clr-namespace:Microsoft.LightSwitch.Presentation.Utilities.Internal;assembly=Microsoft.LightSwitch.Client"
+                    xmlns:localConverters="clr-namespace:Microsoft.LightSwitch.Presentation.Implementation.Converters;assembly=Microsoft.LightSwitch.Client.Internal"
+                    xmlns:slu="clr-namespace:Microsoft.LightSwitch.Utilities.SilverlightUtilities;assembly=Microsoft.LightSwitch.Client"
+                    xmlns:fxconv="clr-namespace:Microsoft.LightSwitch.Presentation.Framework.Converters.Internal;assembly=Microsoft.LightSwitch.Client"
+                    xmlns:System_Windows_Controls_Primitives="clr-namespace:System.Windows.Controls.Primitives;assembly=System.Windows.Controls"
+                    >
+
+    <!-- The following styles are to define the appearance of all of LightSwitch's date controls.  The Metro theme does not change
+         the built-in styles for these controls.  The styles below are the default styles; they are included here for reference. -->
+    <localConverters:BooleanToDatePickerFormatConverter x:Key="booleanToDatePickerFormatConverter"/>
+    
+    <utils:NotConverter x:Key="NotConverter"/>
+    <fxconv:BooleanToValueConverter x:Key="IsReadOnlyToStyleConverter" ValueForTrue="{StaticResource DisabledDisplayModeTextBlockStyle}" ValueForFalse="{StaticResource DisplayModeTextBlockStyle}"/>
+    <fxconv:DatePickerMinWidthConverter x:Key="DatePickerMinWidthConverter"/>
+
+    <!-- Implicit style for the date picker in edit mode -->
+    <Style TargetType="visual:DatePickerVisual">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="MinWidth" Value="40"/>
+        <Setter Property="style:SetterBindingHelper.PropertyBindings">
+            <Setter.Value>
+                <!-- These are bound to properties on the content item -->
+                <style:SetterBindingHelperCollection>
+                    <style:ContainerStateHelper Binding="{Binding ContainerState}"/>
+                    <style:SetterBindingHelper Property="IsEnabled" Binding="{Binding IsReadOnly, Converter={StaticResource NotConverter}}"/>
+                </style:SetterBindingHelperCollection>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="visual:DatePickerVisual">
+                    <ContentPresenter HorizontalAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/HorizontalAlignment]}"
+                                      VerticalAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/VerticalAlignment]}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Disabled"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="ContainerStates">
+                                <VisualState x:Name="None"/>
+                                <VisualState x:Name="Cell">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DatePickerElement" Duration="0">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="InDataGridDatePickerStyle"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetName="InDataGridBackground" Storyboard.TargetProperty="Opacity" To="1" Duration="0"/>
+                                        <DoubleAnimation Storyboard.TargetName="NormalBackground" Storyboard.TargetProperty="Opacity" To="0" Duration="0"/>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.VerticalAlignment)" Storyboard.TargetName="LayoutRoot">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <VerticalAlignment>Top</VerticalAlignment>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid x:Name="LayoutRoot" MinHeight="21" AutomationProperties.HelpText="{Binding Description}" ToolTipService.ToolTip="{Binding Description}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Margin="0" Background="Transparent">
+                                <Border x:Name="InDataGridBackground" Opacity="0"/>
+                                <Border x:Name="NormalBackground" Style="{StaticResource TextBoxBorderStyle}" BorderThickness="1" Opacity="1"/>
+                                <!--The reason why we have two local properties for DatePicker and TimePicker to bind to is
+                                    DatePicker will reset time value to 12:00:00 AM when the selected date changes. So we have
+                                    to handle it by ourselves in code behind to make sure the current time info will not lose. -->
+                                <!--Text property needs to be bound manually. Ideally, SelectedDate change will update Text
+                                    Property. However, SL team uses Dispatcher to do so and the latency causes bug 819523. -->
+                                <visual:BaseDatePicker x:Name="DatePickerElement"
+                                        AutomationProperties.AutomationId="{Binding Name, StringFormat=Control:\{0\}}"
+                                        AutomationProperties.Name="{Binding DisplayName}"
+                                        AutomationProperties.HelpText="{Binding Description}"
+                                        Style="{StaticResource DatePickerStyle}"
+                                        SelectedDateFormat="{Binding LongDate, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource booleanToDatePickerFormatConverter}}"
+                                        Visibility="Visible"
+                                        SelectedDate="{Binding LocalDate, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+                            </Grid>
+                            <!-- Bind to StringValue as the ContentItem aggregates all the validation results into StringValue property name in INotifyDataErrorInfo -->
+                            <slu:ValidatableContentControl ValidationDataSource="{Binding StringValue}"/>
+                        </Grid>
+                    </ContentPresenter>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Implicit style for the date picker when it is inside the grid or otherwise read-only-->
+    <Style TargetType="visual:DisplayModeDateTimePickerVisual">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="MinWidth" Value="40"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="visual:DisplayModeDateTimePickerVisual">
+                    <ContentPresenter>
+                        <Grid HorizontalAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/HorizontalAlignment]}"
+                            VerticalAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/VerticalAlignment]}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Padding="0,0,25,0" TextAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/TextAlignment]}"
+                                 Visibility="{Binding ShowDate, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource booleanToVisibilityConverter}}"
+                                 Style="{Binding IsReadOnly, Converter={StaticResource IsReadOnlyToStyleConverter}}"
+                                 IsHitTestVisible="False" Opacity="0"
+                                 Text="{Binding Converter={StaticResource DatePickerMinWidthConverter}}"/>
+                            <TextBlock x:Name="DateViewerElement" Padding="0,0,25,0"
+                                 Text="{TemplateBinding DateText}"
+                                 TextAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/TextAlignment]}"
+                                 Visibility="{Binding ShowDate, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource booleanToVisibilityConverter}}"
+                                 Style="{Binding IsReadOnly, Converter={StaticResource IsReadOnlyToStyleConverter}}"/>
+                            <TextBlock x:Name="TimeViewerElement" Padding="0,0,25,0"
+                                 Grid.Column="1"
+                                 Text="{TemplateBinding TimeText}"
+                                 TextAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/TextAlignment]}"
+                                 Visibility="{Binding ShowTime, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource booleanToVisibilityConverter}}"
+                                 Style="{Binding IsReadOnly, Converter={StaticResource IsReadOnlyToStyleConverter}}"/>
+                        </Grid>
+                    </ContentPresenter>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Style for the date and time picker (i.e., fields that are DateTime-->
+    <Style TargetType="visual:DateTimeViewerVisual">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="MinWidth" Value="14"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="visual:DateTimeViewerVisual">
+                    <framework:StatesControl HorizontalAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/HorizontalAlignment]}"
+                                             VerticalAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/VerticalAlignment]}">
+                        <framework:LinkableLabel x:Name="LabelElement"
+                            ToolTipService.ToolTip="{Binding Description}"
+                            AutomationProperties.AutomationId="{Binding Name, StringFormat=Control:\{0\}}"
+                            AutomationProperties.Name="{Binding DisplayName}"
+                            AutomationProperties.HelpText="{Binding Description}"
+                            TextAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/TextAlignment]}"
+                            NeedTabStop="{TemplateBinding NeedTabStop}"
+                            Text="{TemplateBinding FormattedText}"/>
+                    </framework:StatesControl>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Style for the date and time picker when it is in display mode (e.g., inside the data grid) -->
+    <Style TargetType="visual:DisplayModeDateTimeViewerVisual">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="MinWidth" Value="14"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="visual:DisplayModeDateTimeViewerVisual">
+                    <ContentPresenter HorizontalAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/HorizontalAlignment]}"
+                                      VerticalAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/VerticalAlignment]}">
+                        <TextBlock x:Name="ViewerElement"
+                            Text="{TemplateBinding FormattedText}"
+                            TextAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/TextAlignment]}"
+                            Style="{Binding IsReadOnly, Converter={StaticResource IsReadOnlyToStyleConverter}}"/>
+                    </ContentPresenter>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Style for dates when the developer has explicitly requested a non-editable presentation for the date-->
+    <Style TargetType="visual:DateViewerVisual">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="MinWidth" Value="14"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="visual:DateViewerVisual">
+                    <framework:StatesControl HorizontalAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/HorizontalAlignment]}"
+                                                 VerticalAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/VerticalAlignment]}">
+                        <framework:LinkableLabel x:Name="LabelElement"
+                                            ToolTipService.ToolTip="{Binding Description}"
+                                            AutomationProperties.AutomationId="{Binding Name, StringFormat=Control:\{0\}}"
+                                            AutomationProperties.Name="{Binding DisplayName}"
+                                            AutomationProperties.HelpText="{Binding Description}"
+                                            TextAlignment="{Binding Properties[Microsoft.LightSwitch:RootControl/TextAlignment]}"
+                                            NeedTabStop="{TemplateBinding NeedTabStop}"
+                                            Text="{TemplateBinding FormattedText}"/>
+                    </framework:StatesControl>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
