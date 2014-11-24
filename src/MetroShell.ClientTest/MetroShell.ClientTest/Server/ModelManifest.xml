@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<ModelDocumentManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Documents>
+    <Document FullPath="G:\Documents\Visual Studio 2010\Projects\PaulozziCo.MetroShell\MetroShell.ClientTest\MetroShell.ClientTest\Common\Properties\Common.lsml" Checksum="55347E291BA6CCBB0C13AF1AB4D4DFB981EC4A6DDC06B59550F95F8E85D95039" />
+    <Document FullPath="G:\Documents\Visual Studio 2010\Projects\PaulozziCo.MetroShell\MetroShell.ClientTest\MetroShell.ClientTest\Server\Properties\Service.lsml" Checksum="27CACB0672D3C64F1F9442FD8A8A16BDA919A1BFE4702782161604D4D565620C" />
+  </Documents>
+</ModelDocumentManifest>
